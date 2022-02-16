@@ -14,6 +14,7 @@ class IncubatorController extends Controller
      */
     public function index()
     {
+        // $this->loadViewsFrom();
         return view('incubator::index');
     }
 
