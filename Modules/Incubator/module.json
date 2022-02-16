@@ -1,0 +1,13 @@
+{
+    "name": "Incubator",
+    "alias": "incubator",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Incubator\\Providers\\IncubatorServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
