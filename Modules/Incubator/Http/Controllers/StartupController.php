@@ -1,10 +1,12 @@
 <?php
 
 namespace Modules\Incubator\Http\Controllers;
+use File;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\File as FacadesFile;
 use Modules\Incubator\Entities\Startup;
 
 class StartupController extends Controller
@@ -15,8 +17,8 @@ class StartupController extends Controller
      */
     public function index()
     {
-        $startup=Startup::all();
-        return view('incubator::index');
+        $startups=Startup::all();
+        return view('incubator::pages.startups',compact('startups'));
     }
 
     /**
@@ -25,7 +27,7 @@ class StartupController extends Controller
      */
     public function create()
     {
-        return view('incubator::create');
+        return view('incubator::pages.createStartups');
     }
 
     /**
@@ -35,7 +37,20 @@ class StartupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:50',
+            'description' => 'required|max:500',
+        ]);
+
+        $store= new Startup;
+        $store->name=$request->name;
+        $store->description=$request->description;
+        FacadesFile::makeDirectory('modules/incubator/'.$request->name);
+        $store->save();
+
+        $startups=Startup::all();
+
+        return view('incubator::pages.startups',compact('startups'));
     }
 
     /**
@@ -55,7 +70,8 @@ class StartupController extends Controller
      */
     public function edit($id)
     {
-        return view('incubator::edit');
+        $edit=Startup::find($id);
+        return view('incubator::pages.editStartups',compact('edit'));
     }
 
     /**
@@ -64,9 +80,21 @@ class StartupController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update($id,Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:50',
+            'description' => 'required|max:500',
+        ]);
+
+        $update= Startup::find($id);
+        $update->name=$request->name;
+        $update->description=$request->description;
+        $update->save();
+
+        $startups=Startup::all();
+
+        return view('incubator::pages.startups',compact('startups'));
     }
 
     /**

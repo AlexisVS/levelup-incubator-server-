@@ -12,10 +12,18 @@
 */
 
 use Illuminate\Support\Facades\Route;
+use Modules\Incubator\Http\Controllers\StartupController;
+
+//Tout commence par /incubator
 
 Route::prefix('incubator')->group(function() {
     Route::get('/', 'IncubatorController@index');
-    Route::get('/startups', 'StartupsController@index');
+    Route::get('/startups', [StartupController::class,'index']);
+    Route::get('/startups/create', [StartupController::class,'create']);
+    Route::post('/startups/create', [StartupController::class,'store']);
+    Route::get('/startups/edit/{id}', [StartupController::class,'edit']);
+    Route::put('/startups/update/{id}', [StartupController::class,'update']);
+
     
 });
 
