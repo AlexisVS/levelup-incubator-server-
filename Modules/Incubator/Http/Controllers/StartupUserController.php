@@ -114,7 +114,7 @@ class StartupUserController extends Controller
         $update->last_name = $request->last_name;
         $update->save();
 
-        return redirect('/incubator/startups/' . $update->id )->with('success', 'Your account' . $request->email . ' has been successfully updated.');
+        return redirect('/incubator/startups/show/' . $update->id )->with('success', 'Your account' . $request->email . ' has been successfully updated.');
     }
 
     /**

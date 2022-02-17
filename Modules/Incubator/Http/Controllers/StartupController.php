@@ -28,7 +28,7 @@ class StartupController extends Controller
      */
     public function create()
     {
-        return view('incubator::pages.createStartups');
+        return view('incubator::pages.startups.createStartups');
     }
 
     /**
