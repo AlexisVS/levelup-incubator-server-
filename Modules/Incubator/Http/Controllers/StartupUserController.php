@@ -45,7 +45,6 @@ class StartupUserController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'email' => 'required',
             'password' => 'required',
@@ -54,7 +53,7 @@ class StartupUserController extends Controller
             'startup_id' => 'required',
         ]);
 
-        $user = StartupUser::create([
+        StartupUser::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'first_name' => $request->first_name,
