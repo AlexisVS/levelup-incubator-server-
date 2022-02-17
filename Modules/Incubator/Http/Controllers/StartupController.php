@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\File as FacadesFile;
 use Modules\Incubator\Entities\Startup;
+use Modules\Incubator\Entities\StartupUser;
 
 class StartupController extends Controller
 {
@@ -18,7 +19,7 @@ class StartupController extends Controller
     public function index()
     {
         $startups=Startup::all();
-        return view('incubator::pages.startups',compact('startups'));
+        return view('incubator::pages.startups.startups',compact('startups'));
     }
 
     /**
@@ -57,7 +58,7 @@ class StartupController extends Controller
 
         $startups=Startup::all();
 
-        return view('incubator::pages.startups',compact('startups'));
+        return view('incubator::pages.startups.startups',compact('startups'));
     }
 
     /**
@@ -67,7 +68,10 @@ class StartupController extends Controller
      */
     public function show($id)
     {
-        return view('incubator::show');
+        // $show=Startup::find($id);
+        $users=StartupUser::where('startup_id',$id)->get();
+        // dd($users);
+        return view('incubator::pages.startups.showStartups',compact('users'));
     }
 
     /**
@@ -78,7 +82,7 @@ class StartupController extends Controller
     public function edit($id)
     {
         $edit=Startup::find($id);
-        return view('incubator::pages.editStartups',compact('edit'));
+        return view('incubator::pages.startups.editStartups',compact('edit'));
     }
 
     /**
@@ -101,7 +105,7 @@ class StartupController extends Controller
 
         $startups=Startup::all();
 
-        return view('incubator::pages.startups',compact('startups'));
+        return view('incubator::pages.startups.startups',compact('startups'));
     }
 
     /**
@@ -111,9 +115,11 @@ class StartupController extends Controller
      */
     public function destroy($id)
     {
+        //Supression de la Startup et des Users liés à celle-ci
         $destroy= Startup::find($id);
+        $users = $destroy->startupUsers;
+        StartupUser::destroy($users);
         $destroy->delete();
-        
         return redirect()->back();
     }
 }
