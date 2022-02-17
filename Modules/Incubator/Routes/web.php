@@ -12,9 +12,11 @@
 */
 
 use Illuminate\Support\Facades\Route;
+use Modules\Incubator\Http\Controllers\StartupUserController;
+
 // use Modules\Incubator\Http\Controllers\StartupUserController;
 
 Route::prefix('incubator')->group(function() {
     Route::get('/', 'IncubatorController@index');
-    Route::resource('/startup-users', \Modules\Incubator\Http\Controllers\StartupUserController::class);
+    Route::resource('/startup-users', StartupUserController::class);
 });

@@ -5,6 +5,7 @@ namespace Modules\Incubator\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class StartupUserSeederTableSeeder extends Seeder
 {
@@ -20,7 +21,7 @@ class StartupUserSeederTableSeeder extends Seeder
         DB::table('startup_users')->insert([
             [
                 'email' => 'userStartup@userstartup.com',
-                'password' => 'userStartup@userstartup.com',
+                'password' => Hash::make('userStartup@userstartup.com'),
                 'first_name' => 'Jean',
                 'last_name' => 'Michel',
                 'startup_id' => 1,
