@@ -25,6 +25,5 @@ Route::prefix('incubator')->group(function() {
     Route::put('/startups/update/{id}', [StartupController::class,'update']);
     Route::delete("/startups/delete/{id}", [StartupController::class, "destroy"]);
 
-    
 });
 
