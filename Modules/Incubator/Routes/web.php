@@ -13,11 +13,19 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Incubator\Http\Controllers\StartupController;
+use Modules\Incubator\Http\Controllers\StartupUserController;
 
 //Tout commence par /incubator
 
-Route::prefix('incubator')->group(function() {
+
+Route::prefix('incubator')->group(function () {
     Route::get('/', 'IncubatorController@index');
+    Route::get('/startup-users/create', [StartupUserController::class,'create']);
+    Route::post('/startup-users', [StartupUserController::class,'store']);
+    Route::get('/startup-users/{id}/edit', [StartupUserController::class,'edit']);
+    Route::put('/startup-users/{id}/update', [StartupUserController::class,'update']);
+    Route::delete('/startup-users/{id}/delete', [StartupUserController::class,'destroy']);
+
     Route::get('/startups', [StartupController::class,'index']);
     Route::get('/startups/create', [StartupController::class,'create']);
     Route::post('/startups/create', [StartupController::class,'store']);
