@@ -15,4 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('incubator')->group(function() {
     Route::get('/', 'IncubatorController@index');
+    Route::get('/startups', 'StartupsController@index');
+    
 });
+
