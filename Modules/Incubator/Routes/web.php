@@ -14,12 +14,11 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::prefix('incubator')->group(function() {
+Route::prefix('incubator')->group(function () {
     Route::get('/', 'IncubatorController@index');
-    Route::get('/startup-users', 'StartupUserController@index' );
-    Route::get('/startup-users/create', 'StartupUserController@create' );
-    Route::post('/startup-users', 'StartupUserController@store' );
-    Route::get('/startup-users/edit', 'StartupUserController@edit' );
-    Route::put('/startup-users', 'StartupUserController@update' );
-    Route::delete('/startup-users', 'StartupUserController@destroy' );
+    Route::get('/startup-users/create', 'StartupUserController@create');
+    Route::post('/startup-users', 'StartupUserController@store');
+    Route::get('/startup-users/edit', 'StartupUserController@edit');
+    Route::put('/startup-users', 'StartupUserController@update');
+    Route::delete('/startup-users', 'StartupUserController@destroy');
 });

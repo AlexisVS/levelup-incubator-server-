@@ -5,7 +5,9 @@ namespace Modules\Incubator\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Modules\Incubator\Entities\Startup;
 use Modules\Incubator\Entities\StartupUser;
 
 class StartupUserController extends Controller
@@ -16,7 +18,11 @@ class StartupUserController extends Controller
      */
     public function index()
     {
-        return view('incubator::pages.startup_user.index');
+        $data = [
+            'startup_users' => StartupUser::all(),
+        ];
+
+        return view('incubator::pages.startup_user.index', $data);
     }
 
     /**
@@ -25,7 +31,11 @@ class StartupUserController extends Controller
      */
     public function create()
     {
-        return view('incubator::create');
+        $data = [
+            'startups' => Startup::all(),
+        ];
+
+        return view('incubator::pages.startup_user.create', $data);
     }
 
     /**
@@ -35,17 +45,18 @@ class StartupUserController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
-            'email' => 'required|email',
+            'email' => 'required',
             'password' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
             'startup_id' => 'required',
         ]);
 
-        StartupUser::create([
+        $user = StartupUser::create([
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'startup_id' => $request->startup_id,
@@ -61,7 +72,11 @@ class StartupUserController extends Controller
      */
     public function show($id)
     {
-        return view('incubator::show');
+        $data = [
+            'startup_user' => StartupUser::find($id),
+        ];
+
+        return view('incubator::pages.startup_user.show', $data);
     }
 
     /**
@@ -71,7 +86,11 @@ class StartupUserController extends Controller
      */
     public function edit($id)
     {
-        return view('incubator::edit');
+        $data = [
+            'startup_user' => StartupUser::find($id),
+        ];
+
+        return view('incubator::pages.startup_user.edit', $data);
     }
 
     /**
@@ -91,7 +110,7 @@ class StartupUserController extends Controller
 
         $update = StartupUser::find($id);
         $update->email = $request->email;
-        $update->password = $request->password;
+        $update->password = Hash::make($request->password);
         $update->first_name = $request->first_name;
         $update->last_name = $request->last_name;
         $update->save();
