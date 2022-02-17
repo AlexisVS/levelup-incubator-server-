@@ -23,6 +23,7 @@ Route::prefix('incubator')->group(function() {
     Route::post('/startups/create', [StartupController::class,'store']);
     Route::get('/startups/edit/{id}', [StartupController::class,'edit']);
     Route::put('/startups/update/{id}', [StartupController::class,'update']);
+    Route::delete("/startups/delete/{id}", [StartupController::class, "destroy"]);
 
     
 });

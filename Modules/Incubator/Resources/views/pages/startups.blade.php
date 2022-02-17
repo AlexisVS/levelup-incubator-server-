@@ -80,7 +80,11 @@
                    </svg>
                  </a>
                  {{-- Delete --}}
+                 <form action="/incubator/startups/delete/{{$startup->id}}" method="post">
+                  @csrf
+                  @method('DELETE')
                  <button
+                 type="submit"
                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                    aria-label="Delete"
                  >
@@ -97,6 +101,7 @@
                      ></path>
                    </svg>
                  </button>
+                </form>
                </div>
               </td>
             </tr>

@@ -45,8 +45,15 @@ class StartupController extends Controller
         $store= new Startup;
         $store->name=$request->name;
         $store->description=$request->description;
+
+        //Créer le dossier seulement s'il n'existe pas déja
+        if(!FacadesFile::isDirectory('modules/incubator/'.$request->name)){
+        
+        //Création du dossier avec le nom de la startup
         FacadesFile::makeDirectory('modules/incubator/'.$request->name);
+        }
         $store->save();
+
 
         $startups=Startup::all();
 
@@ -104,6 +111,9 @@ class StartupController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $destroy= Startup::find($id);
+        $destroy->delete();
+        
+        return redirect()->back();
     }
 }
