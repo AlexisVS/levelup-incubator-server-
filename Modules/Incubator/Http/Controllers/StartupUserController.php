@@ -64,19 +64,19 @@ class StartupUserController extends Controller
         return redirect()->back()->with('success', 'The user' . $request->email . ' has been successfully created.');
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        $data = [
-            'startup_user' => StartupUser::find($id),
-        ];
+    // /**
+    //  * Show the specified resource.
+    //  * @param int $id
+    //  * @return Renderable
+    //  */
+    // public function show($id)
+    // {
+    //     $data = [
+    //         'startup_user' => StartupUser::find($id),
+    //     ];
 
-        return view('incubator::pages.startup_user.show', $data);
-    }
+    //     return view('incubator::pages.startup_user.show', $data);
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -99,9 +99,9 @@ class StartupUserController extends Controller
      * @return Renderable
      */
     public function update(Request $request, $id)
-    {
+    {   
         $request->validate([
-            'email' => 'required|email',
+            'email' => 'required',
             'password' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
@@ -114,7 +114,7 @@ class StartupUserController extends Controller
         $update->last_name = $request->last_name;
         $update->save();
 
-        return redirect()->back()->with('success', 'Your account' . $request->email . ' has been successfully updated.');
+        return redirect('/incubator/startups/' . $update->id )->with('success', 'Your account' . $request->email . ' has been successfully updated.');
     }
 
     /**
