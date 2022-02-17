@@ -28,7 +28,7 @@ class StartupController extends Controller
      */
     public function create()
     {
-        return view('incubator::pages.createStartups');
+        return view('incubator::pages.startups.createStartups');
     }
 
     /**
@@ -47,11 +47,15 @@ class StartupController extends Controller
         $store->name=$request->name;
         $store->description=$request->description;
 
+        //On remplace les espaces présents dans le nom de la startup par des _
+        $replace=str_replace(' ', '_', $request->name);
+        
         //Créer le dossier seulement s'il n'existe pas déja
         if(!FacadesFile::isDirectory('modules/incubator/'.$request->name)){
         
+
         //Création du dossier avec le nom de la startup
-        FacadesFile::makeDirectory('modules/incubator/'.$request->name);
+        FacadesFile::makeDirectory('modules/incubator/'.$replace);
         }
         $store->save();
 
