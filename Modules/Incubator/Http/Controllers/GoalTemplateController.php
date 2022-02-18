@@ -111,6 +111,10 @@ class GoalTemplateController extends Controller
      */
     public function destroy($id)
     {
-        
+        $destroy = GoalTemplate::find($id);
+        $destroy->goalTaskTemplates()->detach();
+        $destroy->delete();
+
+        return redirect('/incubator/goal-templates')->with('success', 'The goal template has been successfully deleted.');
     }
 }

@@ -19,8 +19,8 @@ class GoalTemplate extends Model
     //     return \Modules\Incubator\Database\factories\GoalTemplateModelFactory::new();
     // }
 
-    public function taskTemplates()
+    public function goalTaskTemplates()
     {
-        return $this->belongsToMany(TaskTemplate::class)->using(PivotGoalTaskTemplate::class);
+        return $this->belongsToMany(GoalTaskTemplate::class, 'pivot_goal_task_templates')->using(PivotGoalTaskTemplate::class);
     }
 }

@@ -2,7 +2,9 @@
 
 @section('content')
 
-
+<h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+  Goal's templates
+</h2>
 <div class="w-full overflow-hidden rounded-lg shadow-xs">
   <div class="w-full overflow-x-auto">
     <table class="w-full whitespace-no-wrap">
@@ -10,9 +12,7 @@
         <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
           <th class="px-4 py-3">Nom</th>
           <th class="px-4 py-3">Description</th>
-          <th class="px-4 py-3">Date de création</th>
           <th class="px-4 py-3">Actions</th>
-          <th class="px-4 py-3">Users</th>
         </tr>
       </thead>
       <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -26,29 +26,29 @@
                 <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
               </div>
               <div>
-                <p class="font-semibold">{{$startup->name}}</p>
+                <p class="font-semibold">{{$goal_template->name}}</p>
                 {{-- <p class="text-xs text-gray-600 dark:text-gray-400">10x Developer </p> --}}
               </div>
             </div>
           </td>
-          <td class="px-4 py-3 text-xs">
-            <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-              {{$startup->description}}
-            </span>
-          </td>
-          <td class="px-4 py-3 text-sm">
-            {{$startup->created_at}}
+          <td class="px-4 py-3">
+            <div class="flex items-center text-sm">
+              <div>
+                <p class="font-semibold">{{$goal_template->description}}</p>
+                {{-- <p class="text-xs text-gray-600 dark:text-gray-400">10x Developer </p> --}}
+              </div>
+            </div>
           </td>
           <td class="px-4 py-3">
             <div class="flex items-center space-x-4 text-sm">
               {{-- Edit --}}
-              <a href="/incubator/startups/edit/{{$startup->id}}" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Edit">
+              <a href="/incubator/goal-templates/{{$goal_template->id}}/edit" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Edit">
                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
                 </svg>
               </a>
               {{-- Delete --}}
-              <form action="/incubator/startups/delete/{{$startup->id}}" method="post">
+              <form action="/incubator/goal-templates/{{$goal_template->id}}" method="post">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Delete">
@@ -57,16 +57,14 @@
                   </svg>
                 </button>
               </form>
+              {{-- Details --}}
+              <a href="/incubator/goal-templates/{{$goal_template->id}}" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              </a>
             </div>
-          </td>
-          {{-- Details --}}
-          <td>
-            <a href="/incubator/startups/show/{{$startup->id}}">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-              </svg>
-            </a>
           </td>
         </tr>
         @endforeach
