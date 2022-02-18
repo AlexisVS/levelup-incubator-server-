@@ -15,7 +15,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return view('incubator::index');
+        return view('incubator::pages.tasks.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('incubator::create');
+        return view('incubator::pages.tasks.create');
     }
 
     /**
@@ -52,7 +52,7 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        return view('incubator::show');
+        return view('incubator::pages.tasks.show');
     }
 
     /**
