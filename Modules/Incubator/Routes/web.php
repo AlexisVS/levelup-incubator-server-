@@ -12,6 +12,7 @@
 */
 
 use Illuminate\Support\Facades\Route;
+use Modules\Incubator\Http\Controllers\GoalTaskTemplateController;
 use Modules\Incubator\Http\Controllers\GoalTemplateController;
 use Modules\Incubator\Http\Controllers\StartupController;
 use Modules\Incubator\Http\Controllers\StartupUserController;
@@ -57,13 +58,13 @@ Route::prefix('incubator')->middleware('auth')->group(function () {
     Route::delete("/goal-templates/{id}", [GoalTemplateController::class, "destroy"]);
 
     // CRUD goal task templates
-    Route::get('/goal-task-templates', [GoalTemplateController::class, 'index']);
-    Route::get('/goal-task-templates/create', [GoalTemplateController::class, 'create']);
-    Route::post('/goal-task-templates', [GoalTemplateController::class, 'store']);
-    Route::get('/goal-task-templates/{id}', [GoalTemplateController::class, "show"]);
-    Route::get('/goal-task-templates/{id}/edit', [GoalTemplateController::class, 'edit']);
-    Route::put('/goal-task-templates/{id}', [GoalTemplateController::class, 'update']);
-    Route::delete('/goal-task-templates/{id}', [GoalTemplateController::class, "destroy"]);
+    Route::get('/goal-task-templates', [GoalTaskTemplateController::class, 'index']);
+    Route::get('/goal-task-templates/create', [GoalTaskTemplateController::class, 'create']);
+    Route::post('/goal-task-templates', [GoalTaskTemplateController::class, 'store']);
+    Route::get('/goal-task-templates/{id}', [GoalTaskTemplateController::class, "show"]);
+    Route::get('/goal-task-templates/{id}/edit', [GoalTaskTemplateController::class, 'edit']);
+    Route::put('/goal-task-templates/{id}', [GoalTaskTemplateController::class, 'update']);
+    Route::delete('/goal-task-templates/{id}', [GoalTaskTemplateController::class, "destroy"]);
 
 
 });

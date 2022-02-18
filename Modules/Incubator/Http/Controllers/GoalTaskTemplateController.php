@@ -5,6 +5,7 @@ namespace Modules\Incubator\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Incubator\Entities\GoalTaskTemplate;
 
 class GoalTaskTemplateController extends Controller
 {
@@ -14,7 +15,11 @@ class GoalTaskTemplateController extends Controller
      */
     public function index()
     {
-        return view('incubator::pages.goal_task_templates.index');
+        $data = [
+            'goal_task_template' => GoalTaskTemplate::all(),
+        ];
+
+        return view('incubator::pages.goal_task_templates.index', $data);
     }
 
     /**

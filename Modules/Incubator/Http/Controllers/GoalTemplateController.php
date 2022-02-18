@@ -47,12 +47,16 @@ class GoalTemplateController extends Controller
             'description' => 'required',
         ]);
 
-        GoalTemplate::create([
+        $store = GoalTemplate::create([
             'name' => $request->name,
-            'description' => $request->description,
+            'description' => trim($request->description),
         ]);
 
-        return redirect('/incubator/goal_templates')->with('success', 'Goal template has been successfully created.');
+        if ($request->goal_task_templates) {
+            $store->goalTaskTemplates()->sync($request->goal_task_templates);
+        }
+
+        return redirect('/incubator/goal-templates')->with('success', 'Goal template has been successfully created.');
     }
 
     /**
@@ -63,7 +67,8 @@ class GoalTemplateController extends Controller
     public function show($id)
     {
         $data = [
-            'goal_task_template' => GoalTemplate::find($id)->taskTemplates,
+            'goal_template' => GoalTemplate::find($id),
+            'goal_task_templates' => GoalTemplate::find($id)->goalTaskTemplates,
         ];
 
         return view('incubator::pages.goal_templates.show', $data);
@@ -78,6 +83,8 @@ class GoalTemplateController extends Controller
     {
         $data = [
             'goal_template' => GoalTemplate::find($id),
+            'goal_task_templates' => GoalTaskTemplate::all(),
+
         ];
 
         return view('incubator::pages.goal_templates.edit', $data);
@@ -98,10 +105,15 @@ class GoalTemplateController extends Controller
 
         $update = GoalTemplate::find($id);
         $update->name = $request->name;
-        $update->description = $request->description;
+        $update->description = trim($request->description);
         $update->save();
 
-        return redirect('/incubator/goal_templates')->with('success', 'The goal template' . $update->name . ' has been successsfully updated.');
+        
+        if ($request->goal_task_templates) {
+            $update->goalTaskTemplates()->sync($request->goal_task_templates);
+        }
+
+        return redirect('/incubator/goal-templates')->with('success', 'The goal template' . $update->name . ' has been successsfully updated.');
     }
 
     /**
