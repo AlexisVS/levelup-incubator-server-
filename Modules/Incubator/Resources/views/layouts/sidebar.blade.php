@@ -15,7 +15,7 @@
               </svg>
               <span class="ml-4">Dashboard</span>
             </a>
-          </li>
+          </li> 
         </ul>
         <ul>
           <li class="relative px-6 py-3">
