@@ -14,7 +14,7 @@ class GoalTemplateController extends Controller
      */
     public function index()
     {
-        return view('incubator::index');
+        return view('inpages.goal_templates.cubator::pages.goal_templates.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class GoalTemplateController extends Controller
      */
     public function create()
     {
-        return view('incubator::create');
+        return view('incubator::pages.goal_templates.create');
     }
 
     /**
@@ -43,7 +43,7 @@ class GoalTemplateController extends Controller
      */
     public function show($id)
     {
-        return view('incubator::show');
+        return view('incubator::pages.goal_templates.show');
     }
 
     /**
@@ -53,7 +53,7 @@ class GoalTemplateController extends Controller
      */
     public function edit($id)
     {
-        return view('incubator::edit');
+        return view('incubator::pages.goal_templates.edit');
     }
 
     /**
