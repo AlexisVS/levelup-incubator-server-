@@ -14,7 +14,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Incubator\Http\Controllers\StartupUserController;
 
-// use Modules\Incubator\Http\Controllers\StartupUserController;
+
 
 Route::prefix('incubator')->group(function() {
     Route::get('/', 'IncubatorController@index');
