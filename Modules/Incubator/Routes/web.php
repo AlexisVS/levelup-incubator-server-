@@ -12,6 +12,7 @@
 */
 
 use Illuminate\Support\Facades\Route;
+use Modules\Incubator\Http\Controllers\GoalTemplateController;
 use Modules\Incubator\Http\Controllers\StartupController;
 use Modules\Incubator\Http\Controllers\StartupUserController;
 
@@ -39,4 +40,12 @@ Route::prefix('incubator')->group(function () {
     Route::put('/startup-users/{id}/update', [StartupUserController::class, 'update']);
     Route::delete('/startup-users/{id}/delete', [StartupUserController::class, 'destroy']);
 
+    // CRUD goal templates
+    Route::get('/goal-templates', [GoalTemplateController::class, 'index']);
+    Route::get('/goal-templates/create', [GoalTemplateController::class, 'create']);
+    Route::post('/goal-templates', [GoalTemplateController::class, 'store']);
+    Route::get('/goal-templates/{id}/edit', [GoalTemplateController::class, 'edit']);
+    Route::put('/goal-templates/{id}', [GoalTemplateController::class, 'update']);
+    Route::delete("/goal-templates/{id}", [GoalTemplateController::class, "destroy"]);
+    Route::get("/goal-templates/{id}", [GoalTemplateController::class, "show"]);
 });

@@ -9,14 +9,18 @@ class GoalTemplate extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
-    
+    protected $fillable = [
+        'name',
+        'description'
+    ];
+
     // protected static function newFactory()
     // {
     //     return \Modules\Incubator\Database\factories\GoalTemplateModelFactory::new();
     // }
 
-    public function taskTemplates () {
-        return $this->hasMany(TaskTemplate::class);
+    public function taskTemplates()
+    {
+        return $this->belongsToMany(TaskTemplate::class)->using(PivotGoalTaskTemplate::class);
     }
 }

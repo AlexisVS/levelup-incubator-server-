@@ -5,7 +5,7 @@ namespace Modules\Incubator\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class TaskTemplate extends Model
+class PivotGoalTaskTemplate extends Model
 {
     use HasFactory;
 
@@ -13,6 +13,6 @@ class TaskTemplate extends Model
     
     // protected static function newFactory()
     // {
-    //     return \Modules\Incubator\Database\factories\TaskTemplateModelFactory::new();
+    //     return \Modules\Incubator\Database\factories\PivotGoalTaskTemplateFactory::new();
     // }
 }

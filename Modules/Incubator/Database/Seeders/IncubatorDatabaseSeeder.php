@@ -22,6 +22,7 @@ class IncubatorDatabaseSeeder extends Seeder
         $this->call([
             StartupSeederTableSeeder::class,
             StartupUserSeederTableSeeder::class,
+            GoalAndTaskTemplateSeederTableSeeder::class
         ]);
     }
 }

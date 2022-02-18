@@ -5,19 +5,14 @@ namespace Modules\Incubator\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class GoalTask extends Model
+class PivotGoalTask extends Model
 {
     use HasFactory;
 
     protected $fillable = [];
-
     
     // protected static function newFactory()
     // {
-    //     return \Modules\Incubator\Database\factories\TaskModelFactory::new();
+    //     return \Modules\Incubator\Database\factories\PivotGoalTaskFactory::new();
     // }
-
-    public function goals () {
-        return $this->belongsToMany(Goal::class)->using(PivotGoalTask::class);
-    }
 }
