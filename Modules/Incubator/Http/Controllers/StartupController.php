@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\File as FacadesFile;
 use Modules\Incubator\Entities\Startup;
 use Modules\Incubator\Entities\StartupUser;
+use Modules\Incubator\Entities\Task;
 
 class StartupController extends Controller
 {
@@ -75,7 +76,8 @@ class StartupController extends Controller
         // $show=Startup::find($id);
         $users=StartupUser::where('startup_id',$id)->get();
         // dd($users);
-        return view('incubator::pages.startups.showStartups',compact('users'));
+        $tasks=Task::where('startup_id',$id)->get();
+        return view('incubator::pages.startups.showStartups',compact('users','tasks'));
     }
 
     /**
