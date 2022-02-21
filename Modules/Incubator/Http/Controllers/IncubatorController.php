@@ -27,15 +27,16 @@ class IncubatorController extends Controller
         return view('incubator::create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+//    /**
+//     * Store a newly created resource in storage.
+//     * @param Request $request
+//     * @return Renderable
+//     */
+//    public function store(Request $request)
+//    {
+
+//        //
+//    }
 
     /**
      * Show the specified resource.
