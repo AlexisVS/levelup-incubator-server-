@@ -65,7 +65,6 @@ Route::prefix('incubator')->middleware('auth')->group(function () {
     Route::delete('/startups/{id}/goals/{goalsId}/tasks/{taskId}', [GoalTaskController::class, 'destroy']);
     /* -------------------------------------------------------------------------- */
 
-
     // CRUD startup user except index
     Route::get('/startup-users/create', [StartupUserController::class, 'create']);
     Route::post('/startup-users', [StartupUserController::class, 'store']);
@@ -95,5 +94,4 @@ Route::prefix('incubator')->middleware('auth')->group(function () {
     Route::get('/goal-task-templates/{id}/edit', [GoalTaskTemplateController::class, 'edit']);
     Route::put('/goal-task-templates/{id}', [GoalTaskTemplateController::class, 'update']);
     Route::delete("/goal-task-templates/{id}", [GoalTaskTemplateController::class, "destroy"]);
-
 });
