@@ -1,4 +1,11 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/js/incubator.js": "/js/incubator.js",
+    "/css/incubator.css": "/css/incubator.css",
+    "/css/tailwindtest.css": "/css/tailwindtest.css",
+    "/Incubatorcss/tailwindtest.css": "/Incubatorcss/tailwindtest.css",
+    "/Ressources/assets/css/tailwindtest.css": "/Ressources/assets/css/tailwindtest.css",
+    "/Resources/assets/css/tailwindtest.css": "/Resources/assets/css/tailwindtest.css",
+    "/Modules/Incubator/Resources/assets/css/tailwindtest.css": "/Modules/Incubator/Resources/assets/css/tailwindtest.css"
 }
