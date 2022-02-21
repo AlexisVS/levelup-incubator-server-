@@ -57,7 +57,7 @@ Route::prefix('incubator')->group(function () {
     Route::delete("/goal-templates/{id}", [GoalTemplateController::class, "destroy"]);
     Route::get("/goal-templates/{id}", [GoalTemplateController::class, "show"]);
 
-    //Documents
+    //Document
     Route::get("/startups/{id}/documents", [DocumentsController::class, "index"]);
 
     //Demande de Documents
