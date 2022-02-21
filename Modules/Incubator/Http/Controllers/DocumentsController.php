@@ -5,6 +5,8 @@ namespace Modules\Incubator\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Incubator\Entities\AskingDocs;
+use Modules\Incubator\Entities\Document;
 use Modules\Incubator\Entities\Startup;
 
 class DocumentsController extends Controller
@@ -17,7 +19,9 @@ class DocumentsController extends Controller
     {
         $startup=Startup::find($id);
 
-        return view('incubator::pages.docs.docs',compact('startup'));
+        $askedStartupDocs=AskingDocs::where('startup_id',$id)->get();
+        // dd($askedStartupDocs);
+        return view('incubator::pages.docs.docs',compact('startup','askedStartupDocs'));
     }
 
     /**

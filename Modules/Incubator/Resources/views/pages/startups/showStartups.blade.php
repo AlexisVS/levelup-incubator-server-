@@ -31,7 +31,6 @@
                 
             </a>
 
-
             <div>
                 @foreach ($tasks as $task)
                 <div class="mt-4 min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
