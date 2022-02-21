@@ -22,8 +22,14 @@
             {{-- Modal button --}}
             <button @click="openModal"
                 class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                Open Modal
+                Ajouter une tache
             </button>
+            <a href="/incubator/startups/{{$user->startup_id}}/asking-docs"
+                class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                <span>Demander un document</span>
+                
+            </a>
+
 
             <div>
                 @foreach ($tasks as $task)
@@ -105,7 +111,7 @@
                 
                 <form action="/incubator/tasks/startups/{{$user->startup_id}}" method="post">
                     @csrf
-
+                    
                     <label class="block text-sm">
                         <span class="text-gray-700 dark:text-gray-400">Titre</span>
                         <input

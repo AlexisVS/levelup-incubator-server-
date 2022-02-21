@@ -13,6 +13,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Incubator\Http\Controllers\GoalTaskTemplateController;
+use Modules\Incubator\Http\Controllers\AskingDocsController;
+use Modules\Incubator\Http\Controllers\GoalTaskController;
 use Modules\Incubator\Http\Controllers\GoalTemplateController;
 use Modules\Incubator\Http\Controllers\StartupController;
 use Modules\Incubator\Http\Controllers\StartupUserController;
@@ -26,6 +28,8 @@ Route::prefix('incubator')->middleware('auth')->group(function () {
     // dashboard
     Route::get('/dashboard', 'IncubatorController@index');
 
+    /* -------------------------------------------------------------------------- */
+    /*                                   Startup                                  */
     // CRUD startup 
     Route::get('/startups', [StartupController::class, 'index']);
     Route::get('/startups/create', [StartupController::class, 'create']);
@@ -34,6 +38,29 @@ Route::prefix('incubator')->middleware('auth')->group(function () {
     Route::get('/startups/edit/{id}', [StartupController::class, 'edit']);
     Route::put('/startups/update/{id}', [StartupController::class, 'update']);
     Route::delete("/startups/delete/{id}", [StartupController::class, "destroy"]);
+
+    //Demande de Documents
+    Route::get("/startups/{id}/asking-docs", [AskingDocsController::class, "create"]);
+    Route::post("/startups/{id}/asking-docs", [AskingDocsController::class, "store"]);
+
+    //Goals
+    Route::get('/startups/{id}/goals', [GoalController::class, 'index']);
+    Route::get('/startups/{id}/goals/create', [GoalController::class, 'create']);
+    Route::post('/startups/{id}/goals', [GoalController::class, 'store']);
+    Route::get('/startups/{id}/goals/{goalsId}', [GoalController::class, 'show']);
+    Route::get('/startups/{id}/goals/{goalsId}/edit', [GoalController::class, 'edit']);
+    Route::put('/startups/{id}/goals/{goalsId}', [GoalController::class, 'update']);
+    Route::delete('/startups/{id}/goals/{goalsId}', [GoalController::class, 'destroy']);
+
+    //Goals task
+    Route::get('/startups/{id}/goals/{goalsId}/tasks', [GoalTaskController::class, 'index']);
+    Route::get('/startups/{id}/goals/{goalsId}/tasks/create', [GoalTaskController::class, 'create']);
+    Route::post('/startups/{id}/goals/{goalsId}/tasks', [GoalTaskController::class, 'store']);
+    Route::get('/startups/{id}/goals/{goalsId}/tasks/{taskId}/edit', [GoalTaskController::class, 'edit']);
+    Route::put('/startups/{id}/goals/{goalsId}/tasks/{taskId}', [GoalTaskController::class, 'update']);
+    Route::delete('/startups/{id}/goals/{goalsId}/tasks/{taskId}', [GoalTaskController::class, 'destroy']);
+    /* -------------------------------------------------------------------------- */
+
 
     // CRUD startup user except index
     Route::get('/startup-users/create', [StartupUserController::class, 'create']);
@@ -67,5 +94,5 @@ Route::prefix('incubator')->middleware('auth')->group(function () {
     Route::delete('/goal-task-templates/{id}', [GoalTaskTemplateController::class, "destroy"]);
 
 
+    Route::get("/goal-templates/{id}", [GoalTemplateController::class, "show"]);
 });
-

@@ -2,12 +2,14 @@
 
 namespace Modules\Incubator\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Incubator\Entities\Task;
+use Modules\Incubator\Entities\AskingDocs;
+use Modules\Incubator\Entities\Startup;
 
-class TaskController extends Controller
+class AskingDocsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,16 +17,18 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return view('incubator::pages.tasks.index');
+        return view('incubator::index');
     }
 
     /**
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function create($id)
     {
-        return view('incubator::pages.tasks.create');
+        $users=User::all();
+        $startup=Startup::find($id);
+        return view('incubator::pages.asking_docs.askingDocs',compact('users','startup'));
     }
 
     /**
@@ -34,15 +38,14 @@ class TaskController extends Controller
      */
     public function store($id,Request $request)
     {
-        $store= new Task;
-        $store->title=$request->title;
-        $store->description=$request->description;
-        $store->status="undone";
+        $store=new AskingDocs;
         $store->startup_id=$id;
+        $store->helper_user_id=$request->helper_user_id;
+        $store->document_title=$request->document_title;
 
         $store->save();
         return redirect()->back();
-        
+
     }
 
     /**
@@ -52,7 +55,7 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        return view('incubator::pages.tasks.show');
+        return view('incubator::show');
     }
 
     /**
@@ -62,8 +65,7 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        $edit=Task::find($id);
-        return view('incubator::pages.tasks.editTasks',compact('edit'));
+        return view('incubator::edit');
     }
 
     /**
@@ -72,14 +74,9 @@ class TaskController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update($id,Request $request)
+    public function update(Request $request, $id)
     {
-        $update=Task::find($id);
-        $update->title=$request->title;
-        $update->description=$request->description;
-        $update->save();
-
-        return redirect('/incubator/startups/show/'.$update->startup_id);
+        //
     }
 
     /**
@@ -89,8 +86,6 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        $destroy=Task::find($id);
-        $destroy->delete();
-        return redirect()->back();
+        //
     }
 }

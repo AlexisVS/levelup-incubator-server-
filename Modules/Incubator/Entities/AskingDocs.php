@@ -5,10 +5,10 @@ namespace Modules\Incubator\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class DocumentDemand extends Model
+class AskingDocs extends Model
 {
     use HasFactory;
-
+    public $table = "document_demands";
     protected $fillable = [];
     
     // protected static function newFactory()
