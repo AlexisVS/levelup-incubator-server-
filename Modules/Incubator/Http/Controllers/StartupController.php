@@ -77,7 +77,8 @@ class StartupController extends Controller
         $users=StartupUser::where('startup_id',$id)->get();
         // dd($users);
         $tasks=Task::where('startup_id',$id)->get();
-        return view('incubator::pages.startups.showStartups',compact('users','tasks'));
+        $startup = Startup::find($id);
+        return view('incubator::pages.startups.showStartups',compact('users','tasks', 'startup'));
     }
 
     /**

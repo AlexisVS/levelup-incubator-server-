@@ -52,7 +52,7 @@ Route::prefix('incubator')->middleware('auth')->group(function () {
     Route::put('/startups/{id}/goals/{goalsId}', [GoalController::class, 'update']);
     Route::delete('/startups/{id}/goals/{goalsId}', [GoalController::class, 'destroy']);
 
-    //Goals task
+    //Goals tasks
     Route::get('/startups/{id}/goals/{goalsId}/tasks', [GoalTaskController::class, 'index']);
     Route::get('/startups/{id}/goals/{goalsId}/tasks/create', [GoalTaskController::class, 'create']);
     Route::post('/startups/{id}/goals/{goalsId}/tasks', [GoalTaskController::class, 'store']);
