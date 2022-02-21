@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Incubator\Entities\AskingDocs;
+use Modules\Incubator\Entities\Startup;
 
 class AskingDocsController extends Controller
 {
@@ -26,7 +27,8 @@ class AskingDocsController extends Controller
     public function create($id)
     {
         $users=User::all();
-        return view('incubator::pages.asking_docs.askingDocs',compact('users'));
+        $startup=Startup::find($id);
+        return view('incubator::pages.asking_docs.askingDocs',compact('users','startup'));
     }
 
     /**
@@ -34,12 +36,10 @@ class AskingDocsController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store($id,Request $request)
     {
         $store=new AskingDocs;
-        // $startupId=$request['startup_id'];
-        // dd($startupId);
-        $store->startup_id="";
+        $store->startup_id=$id;
         $store->helper_user_id=$request->helper_user_id;
         $store->document_title=$request->document_title;
 

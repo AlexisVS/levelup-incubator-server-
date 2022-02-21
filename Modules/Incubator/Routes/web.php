@@ -57,7 +57,7 @@ Route::prefix('incubator')->group(function () {
     Route::get("/goal-templates/{id}", [GoalTemplateController::class, "show"]);
 
     //Demande de Documents
-    Route::get("/asking-docs", [AskingDocsController::class, "create"]);
-    Route::post("/asking-docs", [AskingDocsController::class, "store"]);
+    Route::get("/startups/{id}/asking-docs", [AskingDocsController::class, "create"]);
+    Route::post("/startups/{id}/asking-docs", [AskingDocsController::class, "store"]);
 });
 

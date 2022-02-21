@@ -1,7 +1,7 @@
 @extends('incubator::layouts.master')
 
 @section('content')
-<form action="/incubator/asking-docs" method="post">
+<form action="/incubator/startups/{{$startup->id}}/asking-docs" method="post">
     @csrf
     
     <label class="block text-sm">
