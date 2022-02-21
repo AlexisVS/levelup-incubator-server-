@@ -2,33 +2,31 @@
 
 namespace Modules\Incubator\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Incubator\Entities\AskingDocs;
 use Modules\Incubator\Entities\Startup;
 
-class AskingDocsController extends Controller
+class DocumentsController extends Controller
 {
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index($id)
     {
-        return view('incubator::index');
+        $startup=Startup::find($id);
+
+        return view('incubator::pages.docs.docs',compact('startup'));
     }
 
     /**
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create($id)
+    public function create()
     {
-        $users=User::all();
-        $startup=Startup::find($id);
-        return view('incubator::pages.docs.asking_docs.askingDocs',compact('users','startup'));
+        return view('incubator::create');
     }
 
     /**
@@ -36,16 +34,9 @@ class AskingDocsController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store($id,Request $request)
+    public function store(Request $request)
     {
-        $store=new AskingDocs;
-        $store->startup_id=$id;
-        $store->helper_user_id=$request->helper_user_id;
-        $store->document_title=$request->document_title;
-
-        $store->save();
-        return redirect()->back();
-
+        //
     }
 
     /**

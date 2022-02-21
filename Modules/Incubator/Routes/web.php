@@ -13,6 +13,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Incubator\Http\Controllers\AskingDocsController;
+use Modules\Incubator\Http\Controllers\DocumentsController;
 use Modules\Incubator\Http\Controllers\GoalTemplateController;
 use Modules\Incubator\Http\Controllers\StartupController;
 use Modules\Incubator\Http\Controllers\StartupUserController;
@@ -55,6 +56,9 @@ Route::prefix('incubator')->group(function () {
     Route::put('/goal-templates/{id}', [GoalTemplateController::class, 'update']);
     Route::delete("/goal-templates/{id}", [GoalTemplateController::class, "destroy"]);
     Route::get("/goal-templates/{id}", [GoalTemplateController::class, "show"]);
+
+    //Documents
+    Route::get("/startups/{id}/documents", [DocumentsController::class, "index"]);
 
     //Demande de Documents
     Route::get("/startups/{id}/asking-docs", [AskingDocsController::class, "create"]);
