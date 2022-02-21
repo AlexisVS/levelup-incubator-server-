@@ -16,7 +16,7 @@ class GoalTaskTemplateController extends Controller
     public function index()
     {
         $data = [
-            'goal_task_template' => GoalTaskTemplate::all(),
+            'goal_task_templates' => GoalTaskTemplate::all(),
         ];
 
         return view('incubator::pages.goal_task_templates.index', $data);
@@ -38,18 +38,27 @@ class GoalTaskTemplateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        GoalTaskTemplate::create([
+            'name' => $request->name,
+            'status' => 'undone'
+        ]);
+
+        return redirect('/incubator/goal-task-templates')->with('success', 'Goal Task Template has been successfully created.');
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('incubator::pages.goal_task_templates.show');
-    }
+    // /**
+    //  * Show the specified resource.
+    //  * @param int $id
+    //  * @return Renderable
+    //  */
+    // public function show($id)
+    // {
+    //     return view('incubator::pages.goal_task_templates.show');
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -58,7 +67,10 @@ class GoalTaskTemplateController extends Controller
      */
     public function edit($id)
     {
-        return view('incubator::pages.goal_task_templates.edit');
+        $data = [
+            'goal_task_template' => GoalTaskTemplate::find($id)
+        ];
+        return view('incubator::pages.goal_task_templates.edit', $data);
     }
 
     /**
@@ -69,7 +81,15 @@ class GoalTaskTemplateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $update = GoalTaskTemplate::find($id);
+        $update->name = $request->name;
+        $update->save();
+
+        return redirect('incubator/goal-task-templates')->with('success', 'The goal Task Template has been successfully updated.');
     }
 
     /**
@@ -79,6 +99,8 @@ class GoalTaskTemplateController extends Controller
      */
     public function destroy($id)
     {
-        //
+        GoalTaskTemplate::destroy($id);
+
+        return redirect('incubator/goal-task-templates')->with('success', 'The goal Task Template has been successfully destroyed.');
     }
 }
