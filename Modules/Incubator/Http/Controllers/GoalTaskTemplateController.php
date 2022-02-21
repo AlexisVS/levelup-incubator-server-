@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Incubator\Entities\GoalTaskTemplate;
+use Modules\Incubator\Entities\GoalTemplate;
 
 class GoalTaskTemplateController extends Controller
 {
@@ -99,7 +100,15 @@ class GoalTaskTemplateController extends Controller
      */
     public function destroy($id)
     {
-        GoalTaskTemplate::destroy($id);
+        // GoalTaskTemplate::destroy($id);
+        $destroy = GoalTaskTemplate::find($id);
+        $goalTemplates = GoalTemplate::all();
+        foreach ($goalTemplates as $goalTemplate) {
+            $goalTemplate->goalTaskTemplates()->detach($id);
+        }
+        $destroy->delete();
+        // dd($destroy->goalTemplates);
+
 
         return redirect('incubator/goal-task-templates')->with('success', 'The goal Task Template has been successfully destroyed.');
     }

@@ -4,7 +4,7 @@
 
 <div class="flex items-center justify-between">
   <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-    Goal's task templates
+    Startup {{ $startup->name }}
   </h2>
   <div class="flex items-center space-x-3">
           {{-- Modal button --}}
