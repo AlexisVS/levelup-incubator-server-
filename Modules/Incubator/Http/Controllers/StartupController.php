@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\File as FacadesFile;
 use Modules\Incubator\Entities\Startup;
 use Modules\Incubator\Entities\StartupUser;
+use Modules\Incubator\Entities\Task;
 
 class StartupController extends Controller
 {
@@ -47,11 +48,15 @@ class StartupController extends Controller
         $store->name=$request->name;
         $store->description=$request->description;
 
+        //On remplace les espaces présents dans le nom de la startup par des _
+        $replace=str_replace(' ', '_', $request->name);
+        
         //Créer le dossier seulement s'il n'existe pas déja
         if(!FacadesFile::isDirectory('modules/incubator/'.$request->name)){
         
+
         //Création du dossier avec le nom de la startup
-        FacadesFile::makeDirectory('modules/incubator/'.$request->name);
+        FacadesFile::makeDirectory('modules/incubator/'.$replace);
         }
         $store->save();
 
@@ -71,7 +76,8 @@ class StartupController extends Controller
         // $show=Startup::find($id);
         $users=StartupUser::where('startup_id',$id)->get();
         // dd($users);
-        return view('incubator::pages.startups.showStartups',compact('users'));
+        $tasks=Task::where('startup_id',$id)->get();
+        return view('incubator::pages.startups.showStartups',compact('users','tasks'));
     }
 
     /**

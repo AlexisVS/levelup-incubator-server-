@@ -5,6 +5,7 @@ namespace Modules\Incubator\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Incubator\Entities\Task;
 
 class TaskController extends Controller
 {
@@ -31,9 +32,17 @@ class TaskController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store($id,Request $request)
     {
-        //
+        $store= new Task;
+        $store->title=$request->title;
+        $store->description=$request->description;
+        $store->status="undone";
+        $store->startup_id=$id;
+
+        $store->save();
+        return redirect()->back();
+        
     }
 
     /**
@@ -53,7 +62,8 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        return view('incubator::pages.tasks.edit');
+        $edit=Task::find($id);
+        return view('incubator::pages.tasks.editTasks',compact('edit'));
     }
 
     /**
@@ -62,9 +72,14 @@ class TaskController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update($id,Request $request)
     {
-        //
+        $update=Task::find($id);
+        $update->title=$request->title;
+        $update->description=$request->description;
+        $update->save();
+
+        return back();
     }
 
     /**
@@ -74,6 +89,8 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $destroy=Task::find($id);
+        $destroy->delete();
+        return redirect()->back();
     }
 }

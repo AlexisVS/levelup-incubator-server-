@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGoalTaskTable extends Migration
+class CreatePivotGoalTaskTemplatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateGoalTaskTable extends Migration
      */
     public function up()
     {
-        Schema::create('goal_tasks', function (Blueprint $table) {
+        Schema::create('pivot_goal_task_templates', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            // $table->foreignId('goal_id')->constrained();
+            $table->foreignId('goal_template_id')->nullable()->constrained();
+            $table->foreignId('goal_task_template_id')->nullable()->constrained();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateGoalTaskTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('goal_tasks');
+        Schema::dropIfExists('pivot_goal_task_templates');
     }
 }

@@ -5,6 +5,8 @@ namespace Modules\Incubator\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Incubator\Entities\GoalTemplate;
+use Modules\Incubator\Entities\GoalTaskTemplate;
 
 class GoalTemplateController extends Controller
 {
@@ -14,7 +16,11 @@ class GoalTemplateController extends Controller
      */
     public function index()
     {
-        return view('inpages.goal_templates.cubator::pages.goal_templates.index');
+        $data = [
+            'goal_templates' => GoalTemplate::all(),
+        ];
+
+        return view('incubator::pages.goal_templates.index', $data);
     }
 
     /**
@@ -23,7 +29,10 @@ class GoalTemplateController extends Controller
      */
     public function create()
     {
-        return view('incubator::pages.goal_templates.create');
+        $data = [
+            'goal_task_templates' => GoalTaskTemplate::all(),
+        ];
+        return view('incubator::pages.goal_templates.create', $data);
     }
 
     /**
@@ -33,7 +42,17 @@ class GoalTemplateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
+        GoalTemplate::create([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+
+        return redirect('/incubator/goal_templates')->with('success', 'Goal template has been successfully created.');
     }
 
     /**
@@ -43,7 +62,11 @@ class GoalTemplateController extends Controller
      */
     public function show($id)
     {
-        return view('incubator::pages.goal_templates.show');
+        $data = [
+            'goal_task_template' => GoalTemplate::find($id)->taskTemplates,
+        ];
+
+        return view('incubator::pages.goal_templates.show', $data);
     }
 
     /**
@@ -53,7 +76,11 @@ class GoalTemplateController extends Controller
      */
     public function edit($id)
     {
-        return view('incubator::pages.goal_templates.edit');
+        $data = [
+            'goal_template' => GoalTemplate::find($id),
+        ];
+
+        return view('incubator::pages.goal_templates.edit', $data);
     }
 
     /**
@@ -64,7 +91,17 @@ class GoalTemplateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
+        $update = GoalTemplate::find($id);
+        $update->name = $request->name;
+        $update->description = $request->description;
+        $update->save();
+
+        return redirect('/incubator/goal_templates')->with('success', 'The goal template' . $update->name . ' has been successsfully updated.');
     }
 
     /**
@@ -74,6 +111,6 @@ class GoalTemplateController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }
