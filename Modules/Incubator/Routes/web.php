@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Incubator\Http\Controllers\GoalTaskTemplateController;
 use Modules\Incubator\Http\Controllers\AskingDocsController;
 use Modules\Incubator\Http\Controllers\GoalTaskController;
+use Modules\Incubator\Http\Controllers\DocumentsController;
 use Modules\Incubator\Http\Controllers\GoalTemplateController;
 use Modules\Incubator\Http\Controllers\StartupController;
 use Modules\Incubator\Http\Controllers\StartupUserController;
