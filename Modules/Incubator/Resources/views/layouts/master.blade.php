@@ -8,7 +8,7 @@
   <title>Windmill Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   {{-- <link rel="stylesheet" href="{{ Module::asset('Incubator:css/tailwind.output.css')}}" /> --}}
-  <link rel="stylesheet" href="{{ mix('css/tailwindtest.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/tailwindtest.css') }}">
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
   <script src="{{ Module::asset('Incubator:js/init-alpine.js')}}"></script>
   <script src="{{ Module::asset('Incubator:js/focus-trap.js')}}"></script>

@@ -54,19 +54,19 @@
 </div>
 <div> --}}
 
-  <div>
+
     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
       Taches
     </h2>
     @foreach ($tasks as $task)
     <div class="mt-4 min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-      <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
-        {{$task->title}}
-      </h4>
-      <p class="text-gray-600 dark:text-gray-400">
-        {{$task->description}}
-      </p>
-      {{-- Delete --}}
+      <div class="flex items-center justify-between">
+
+        <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
+          {{$task->title}}
+        </h4>
+
+      {{-- Action --}}
       <div class="flex items-center space-x-4 text-sm">
         <form action="/incubator/tasks/delete/{{ $task->id }}" method="post">
           @csrf
@@ -85,6 +85,12 @@
           </svg>
         </a>
       </div>
+
+      </div>
+      <p class="text-gray-600 dark:text-gray-400">
+        {{$task->description}}
+      </p>
+
     </div>
     @endforeach
   </div>
@@ -138,11 +144,11 @@
   </div>
 </div>
 <style>
-  #both {
+  /* #both {
     display: grid;
     grid-template-columns: 1fr 2fr;
     grid-gap: 10px;
-  }
+  } */
 
 </style>
 @endsection
