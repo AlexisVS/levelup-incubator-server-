@@ -16,6 +16,7 @@ class CreateGoalTaskTable extends Migration
         Schema::create('goal_tasks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('status');
             // $table->foreignId('goal_id')->constrained();
             $table->timestamps();
         });

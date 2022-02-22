@@ -13,6 +13,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     protected $moduleNamespace = 'Modules\Incubator\Http\Controllers';
+    // public const HOME = '/incubator/dashboard';
 
     /**
      * Called before routes are registered.

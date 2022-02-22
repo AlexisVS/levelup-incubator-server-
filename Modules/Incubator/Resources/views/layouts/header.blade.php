@@ -25,7 +25,9 @@
         </button>
       </li>
       <!-- Profile menu -->
+      @if(auth()->check())
       @include('incubator::layouts.profilMenu')
+      @endif
     </ul>
   </div>
 </header>

@@ -5,6 +5,9 @@ namespace Modules\Incubator\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Incubator\Entities\Goal;
+use Modules\Incubator\Entities\GoalTask;
+use Modules\Incubator\Entities\Startup;
 
 class GoalController extends Controller
 {
@@ -14,16 +17,25 @@ class GoalController extends Controller
      */
     public function index()
     {
-        return view('incubator::pages.goals.index');
+        $data = [
+            'goals' => Goal::all(),
+        ];
+
+        return view('incubator::pages.goals.index', $data);
     }
 
     /**
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function create($startupId)
     {
-        return view('incubator::pages.goals.create');
+        $data = [
+            'startup' => Startup::find($startupId),
+            'goal_tasks' => GoalTask::all(),
+        ];
+
+        return view('incubator::pages.goals.create', $data);
     }
 
     /**
@@ -31,9 +43,24 @@ class GoalController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(Request $request, $startupId)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
+        $store = Goal::create([
+            'name' => $request->name,
+            'description' => trim($request->description),
+            'startup_id' => $startupId,
+        ]);
+
+        if ($request->goal_tasks) {
+            $store->goalTaskTemplates()->sync($request->goal_tasks);
+        }
+
+        return redirect('/incubator/startups/' . $startupId . '/goals')->with('success', 'Goal has been successfully created.');
     }
 
     /**
@@ -41,9 +68,13 @@ class GoalController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function show($startupId, $goalId)
     {
-        return view('incubator::pages.goals.show');
+        $data = [
+            'goal' => Goal::find($goalId),
+        ];
+
+        return view('incubator::pages.goals.show', $data);
     }
 
     /**
@@ -51,9 +82,16 @@ class GoalController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit($startupId, $goalId)
     {
-        return view('incubator::pages.goals.edit');
+        $data = [
+            'startup' => Startup::find($startupId),
+            'goal' => Goal::find($goalId),
+            'goal_tasks' => GoalTask::all(),
+
+        ];
+
+        return view('incubator::pages.goals.edit', $data);
     }
 
     /**
@@ -62,9 +100,24 @@ class GoalController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $startupdId, $goalId)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
+        $update = Goal::find($goalId);
+        $update->name = $request->name;
+        $update->description = trim($request->description);
+        $update->save();
+
+
+        if ($request->goal_tasks) {
+            $update->goalTasks()->sync($request->goal_tasks);
+        }
+
+        return redirect('/incubator/startups/' . $startupdId . '/goals/' . $goalId)->with('success', 'The goal ' . $update->name . ' has been successfully updated.');
     }
 
     /**
@@ -72,8 +125,12 @@ class GoalController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($startupId, $goalId)
     {
-        //
+        $destroy = Goal::find($goalId);
+        $destroy->goalTasks()->detach();
+        $destroy->delete();
+
+        return redirect('/incubator/startups/show/' . $startupId )->with('success', 'The goal template has been successfully deleted.');
     }
 }

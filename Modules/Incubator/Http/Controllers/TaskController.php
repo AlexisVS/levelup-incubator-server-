@@ -79,7 +79,7 @@ class TaskController extends Controller
         $update->description=$request->description;
         $update->save();
 
-        return back();
+        return redirect('/incubator/startups/show/'.$update->startup_id);
     }
 
     /**

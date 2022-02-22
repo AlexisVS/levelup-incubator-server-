@@ -10,17 +10,21 @@
     "production": "mix --production"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.2",
     "axios": "^0.21.4",
     "dotenv": "^10.0.0",
     "dotenv-expand": "^5.1.0",
     "laravel-mix": "^6.0.31",
     "laravel-mix-merge-manifest": "^2.0.0",
     "lodash": "^4.17.21",
-    "postcss": "^8.3.7",
+    "postcss": "^8.4.6",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.49.7",
-    "sass-loader": "^12.5.0"
+    "sass-loader": "^12.5.0",
+    "tailwindcss": "1.4.6",
+    "color": "3.1.2",
+    "tailwindcss-multi-theme": "1.0.3",
+    "@tailwindcss/custom-forms": "0.2.1"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
