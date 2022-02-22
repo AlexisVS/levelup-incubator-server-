@@ -38,7 +38,7 @@ class GoalTemplateController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param Request $request
-     * @return Renderable
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
@@ -94,7 +94,7 @@ class GoalTemplateController extends Controller
      * Update the specified resource in storage.
      * @param Request $request
      * @param int $id
-     * @return Renderable
+     * @return \Illuminate\Contracts\Foundation\Application|Renderable|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, $id)
     {
@@ -108,18 +108,18 @@ class GoalTemplateController extends Controller
         $update->description = trim($request->description);
         $update->save();
 
-        
+
         if ($request->goal_task_templates) {
             $update->goalTaskTemplates()->sync($request->goal_task_templates);
         }
 
-        return redirect('/incubator/goal-templates')->with('success', 'The goal template' . $update->name . ' has been successsfully updated.');
+        return redirect('/incubator/goal-templates')->with('success', 'The goal template' . $update->name . ' has been successfully updated.');
     }
 
     /**
      * Remove the specified resource from storage.
      * @param int $id
-     * @return Renderable
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
