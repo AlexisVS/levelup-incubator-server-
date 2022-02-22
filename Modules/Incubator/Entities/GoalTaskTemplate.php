@@ -17,6 +17,6 @@ class GoalTaskTemplate extends Model
     // }
 
     public function goalTemplates () {
-        return $this->belongsToMany(GoalTaskTemplate::class, 'pivot_goal_task_templates')->using(PivotGoalTaskTemplate::class);
+        return $this->belongsToMany(GoalTemplate::class, 'pivot_goal_task_templates')->using(PivotGoalTaskTemplate::class);
     }
 }

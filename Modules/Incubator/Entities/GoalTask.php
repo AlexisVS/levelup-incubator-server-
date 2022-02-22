@@ -9,7 +9,7 @@ class GoalTask extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = ['name', 'status'];
 
     
     // protected static function newFactory()
