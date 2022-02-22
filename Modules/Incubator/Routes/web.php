@@ -63,5 +63,6 @@ Route::prefix('incubator')->group(function () {
     //Demande de Documents
     Route::get("/startups/{id}/asking-docs", [AskingDocsController::class, "create"]);
     Route::post("/startups/{id}/asking-docs", [AskingDocsController::class, "store"]);
+    Route::delete("/askedDoc/{id}", [AskingDocsController::class, "destroy"]);
 });
 
