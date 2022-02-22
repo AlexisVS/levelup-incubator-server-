@@ -16,6 +16,6 @@ class Goal extends Model
     //     return \Modules\Incubator\Database\factories\GoalModelFactory::new();
     // }
     public function goalTasks () {
-        return $this->belongsToMany(Task::class)->using(PivotGoalTask::class);
+        return $this->belongsToMany(Task::class, 'pivot_goal_tasks')->using(PivotGoalTask::class);
     }
 }

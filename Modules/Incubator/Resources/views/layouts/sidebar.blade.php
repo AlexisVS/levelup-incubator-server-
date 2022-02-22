@@ -15,7 +15,7 @@
               </svg>
               <span class="ml-4">Dashboard</span>
             </a>
-          </li> 
+          </li>
         </ul>
         <ul>
           <li class="relative px-6 py-3">
@@ -40,17 +40,7 @@
               <span class="ml-4">Goals</span>
             </a>
           </li>
-          <li class="relative px-6 py-3">
-            @if(Request::is('incubator/tasks*'))
-            <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
-            @endif
-            <a class="inline-flex items-center w-full text-sm font-semibold {{ Request::is('incubator/tasks') ? 'text-gray-800 dark:text-gray-100' : null }} transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="/incubator/tasks">
-              <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
-              </svg>
-              <span class="ml-4">Tasks</span>
-            </a>
-          </li>
+
           <div class="py-1 mx-auto border-t" style="width: 82%; border-color: #999999a0"></div>
           <li class="relative px-6 py-3">
             @if(Request::is('incubator/goal-templates*'))
@@ -61,6 +51,17 @@
                 <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
               </svg>
               <span class="ml-4">Goals templates</span>
+            </a>
+          </li>
+          <li class="relative px-6 py-3">
+            @if(Request::is('incubator/goal-task-templates*'))
+            <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+            @endif
+            <a class="inline-flex items-center w-full text-sm font-semibold {{ Request::is('incubator/goal-task-templates') ? 'text-gray-800 dark:text-gray-100' : null }} transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="/incubator/goal-task-templates">
+              <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+              </svg>
+              <span class="ml-4">Goals task templates</span>
             </a>
           </li>
         </ul>
@@ -122,17 +123,6 @@
               <span class="ml-4">Goals</span>
             </a>
           </li>
-          <li class="relative px-6 py-3">
-            @if(Request::is('incubator/tasks*'))
-            <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
-            @endif
-            <a class="inline-flex items-center w-full text-sm font-semibold {{ Request::is('incubator/tasks') ? 'text-gray-800 dark:text-gray-100' : null }} transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="/incubator/tasks">
-              <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
-              </svg>
-              <span class="ml-4">Tasks</span>
-            </a>
-          </li>
           <div class="py-1 mx-auto border-t" style="width: 82%; border-color: #999999a0"></div>
           <li class="relative px-6 py-3">
             @if(Request::is('incubator/goal-templates*'))
@@ -143,6 +133,17 @@
                 <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
               </svg>
               <span class="ml-4">Goals templates</span>
+            </a>
+          </li>
+          <li class="relative px-6 py-3">
+            @if(Request::is('incubator/goal-task-templates*'))
+            <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+            @endif
+            <a class="inline-flex items-center w-full text-sm font-semibold {{ Request::is('incubator/goal-task-templates') ? 'text-gray-800 dark:text-gray-100' : null }} transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="/incubator/goal-task-templates">
+              <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+              </svg>
+              <span class="ml-4">Goals tasks templates</span>
             </a>
           </li>
         </ul>

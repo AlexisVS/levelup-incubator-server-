@@ -29,15 +29,19 @@ class GoalAndTaskTemplateSeederTableSeeder extends Seeder
         DB::table('goal_task_templates')->insert([
             [
                 'name' => 'apprendre html' ,
+                'status' => 'undone',
             ],
             [
                 'name' => 'apprendre css' ,
+                'status' => 'undone',
             ],
             [
                 'name' => 'apprendre js' ,
+                'status' => 'undone',
             ],
             [
                 'name' => 'apprendre laravel' ,
+                'status' => 'undone',
             ],
         ]);
 

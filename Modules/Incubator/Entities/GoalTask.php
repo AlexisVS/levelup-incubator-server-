@@ -18,6 +18,6 @@ class GoalTask extends Model
     // }
 
     public function goals () {
-        return $this->belongsToMany(Goal::class)->using(PivotGoalTask::class);
+        return $this->belongsToMany(Goal::class, 'pivot_goal_tasks')->using(PivotGoalTask::class);
     }
 }
