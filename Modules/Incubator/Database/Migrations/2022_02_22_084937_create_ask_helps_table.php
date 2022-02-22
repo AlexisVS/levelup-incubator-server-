@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDocumentTable extends Migration
+class CreateAskHelpsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateDocumentTable extends Migration
      */
     public function up()
     {
-        Schema::create('documents', function (Blueprint $table) {
+        Schema::create('ask_helps', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('filepath');
             $table->foreignId('startup_id')->constrained();
+            $table->string('message');
+            $table->string('status');
+            $table->foreignId('helper_user_id')->nullable()->constrained('users', 'id');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateDocumentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('documents');
+        Schema::dropIfExists('ask_helps');
     }
 }

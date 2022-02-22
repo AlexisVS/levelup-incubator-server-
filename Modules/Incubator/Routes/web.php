@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Incubator\Http\Controllers\GoalTaskTemplateController;
 use Modules\Incubator\Http\Controllers\AskingDocsController;
 use Modules\Incubator\Http\Controllers\GoalTaskController;
+use Modules\Incubator\Http\Controllers\GoalController;
 use Modules\Incubator\Http\Controllers\DocumentsController;
 use Modules\Incubator\Http\Controllers\GoalTemplateController;
 use Modules\Incubator\Http\Controllers\StartupController;
@@ -90,11 +91,16 @@ Route::prefix('incubator')->middleware('auth')->group(function () {
 
     //Document
     Route::get("/startups/{id}/documents", [DocumentsController::class, "index"]);
+    Route::post("/startups/{id}/documents", [DocumentsController::class, "store"]);
+    //download
+    Route::get("/startups/{startupId}/documents/{docId}", [DocumentsController::class, "download"]);
+    
 
     //Demande de Documents
     Route::get("/startups/{id}/asking-docs", [AskingDocsController::class, "create"]);
     Route::post("/startups/{id}/asking-docs", [AskingDocsController::class, "store"]);
     Route::delete("/askedDoc/{id}", [AskingDocsController::class, "destroy"]);
+
     
     // CRUD goal task templates
     Route::get('/goal-task-templates', [GoalTaskTemplateController::class, 'index']);
