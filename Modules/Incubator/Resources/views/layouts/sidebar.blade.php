@@ -29,7 +29,7 @@
               <span class="ml-4">Startups</span>
             </a>
           </li>
-          <li class="relative px-6 py-3">
+          {{-- <li class="relative px-6 py-3">
             @if(Request::is('incubator/goals*'))
             <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
             @endif
@@ -39,7 +39,7 @@
               </svg>
               <span class="ml-4">Goals</span>
             </a>
-          </li>
+          </li> --}}
 
           <div class="py-1 mx-auto border-t" style="width: 82%; border-color: #999999a0"></div>
           <li class="relative px-6 py-3">
@@ -112,7 +112,7 @@
               <span class="ml-4">Startup</span>
             </a>
           </li>
-          <li class="relative px-6 py-3">
+          {{-- <li class="relative px-6 py-3">
             @if(Request::is('incubator/goals*'))
             <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
             @endif
@@ -122,7 +122,7 @@
               </svg>
               <span class="ml-4">Goals</span>
             </a>
-          </li>
+          </li> --}}
           <div class="py-1 mx-auto border-t" style="width: 82%; border-color: #999999a0"></div>
           <li class="relative px-6 py-3">
             @if(Request::is('incubator/goal-templates*'))
