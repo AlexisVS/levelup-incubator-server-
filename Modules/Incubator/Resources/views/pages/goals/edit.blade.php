@@ -12,7 +12,7 @@
 
     <label class="block py-2 text-sm">
       <span class="text-gray-700 dark:text-gray-400">Name</span>
-      <input value="{{ $goal->name }}" type="text" name="name" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="First name">
+      <input autofocus value="{{ $goal->name }}" type="text" name="name" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="First name">
     </label>
 
     <label class="block py-2 text-sm">
@@ -27,7 +27,7 @@
       <select name="goal_tasks[]" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-multiselect focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" multiple>
         {{-- TODO : Peut peut être poser probleme si il y a deux goals --}}
         @foreach($goal_tasks as $goal_task)
-          <option {{ $startup->goals()->goalTasks->contains('id', $goal_task->id) ? 'selected' : null }} value="{{ $goal_task->id }}">{{ $goal_task->name }}</option>
+          <option {{ $goal->goalTasks->contains('id', $goal_task->id) ? 'selected' : null }} value="{{ $goal_task->id }}">{{ $goal_task->name }}</option>
         @endforeach
       </select>
     </label>

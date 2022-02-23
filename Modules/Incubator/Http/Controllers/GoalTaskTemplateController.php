@@ -40,7 +40,7 @@ class GoalTaskTemplateController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:goal_task_templates,name',
         ]);
 
         GoalTaskTemplate::create([
@@ -83,7 +83,7 @@ class GoalTaskTemplateController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:goal_task_templates,name',
         ]);
 
         $update = GoalTaskTemplate::find($id);

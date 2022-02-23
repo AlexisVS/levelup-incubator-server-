@@ -46,7 +46,7 @@ class GoalController extends Controller
     public function store(Request $request, $startupId)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:goals,name',
             'description' => 'required',
         ]);
 
@@ -57,10 +57,10 @@ class GoalController extends Controller
         ]);
 
         if ($request->goal_tasks) {
-            $store->goalTaskTemplates()->sync($request->goal_tasks);
+            $store->goalTasks()->sync($request->goal_tasks);
         }
 
-        return redirect('/incubator/startups/' . $startupId . '/goals')->with('success', 'Goal has been successfully created.');
+        return redirect('/incubator/startups/show/' . $startupId)->with('success', 'Goal has been successfully created.');
     }
 
     /**
@@ -88,7 +88,6 @@ class GoalController extends Controller
             'startup' => Startup::find($startupId),
             'goal' => Goal::find($goalId),
             'goal_tasks' => GoalTask::all(),
-
         ];
 
         return view('incubator::pages.goals.edit', $data);
@@ -103,7 +102,7 @@ class GoalController extends Controller
     public function update(Request $request, $startupdId, $goalId)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:goals,name',
             'description' => 'required',
         ]);
 
@@ -117,7 +116,7 @@ class GoalController extends Controller
             $update->goalTasks()->sync($request->goal_tasks);
         }
 
-        return redirect('/incubator/startups/' . $startupdId . '/goals/' . $goalId)->with('success', 'The goal ' . $update->name . ' has been successfully updated.');
+        return redirect('/incubator/startups/show/' . $startupdId)->with('success', 'The goal ' . $update->name . ' has been successfully updated.');
     }
 
     /**
@@ -131,6 +130,6 @@ class GoalController extends Controller
         $destroy->goalTasks()->detach();
         $destroy->delete();
 
-        return redirect('/incubator/startups/show/' . $startupId )->with('success', 'The goal template has been successfully deleted.');
+        return redirect('/incubator/startups/show/' . $startupId)->with('success', 'The goal template has been successfully deleted.');
     }
 }

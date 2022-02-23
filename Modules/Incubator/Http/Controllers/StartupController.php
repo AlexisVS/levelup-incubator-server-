@@ -40,7 +40,7 @@ class StartupController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:50',
+            'name' => 'required|max:50|unique:startups,name',
             'description' => 'required|max:500',
         ]);
 
@@ -101,7 +101,7 @@ class StartupController extends Controller
     public function update($id,Request $request)
     {
         $request->validate([
-            'name' => 'required|max:50',
+            'name' => 'required|max:50|unique:startups,name',
             'description' => 'required|max:500',
         ]);
 
