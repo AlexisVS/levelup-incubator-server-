@@ -3,8 +3,12 @@
 namespace Modules\Incubator\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
+use Modules\Incubator\Entities\AskingDocs;
+use Modules\Incubator\Entities\Document;
 use Modules\Incubator\Entities\Startup;
 
 class DocumentsController extends Controller
@@ -13,11 +17,16 @@ class DocumentsController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
+
     public function index($id)
     {
         $startup=Startup::find($id);
 
-        return view('incubator::pages.docs.docs',compact('startup'));
+        $askedStartupDocs=AskingDocs::where('startup_id',$id)->get();
+
+        $documents=Document::where('startup_id',$id)->get();
+        // dd($documents);
+        return view('incubator::pages.docs.docs',compact('startup','askedStartupDocs','documents'));
     }
 
     /**
@@ -34,9 +43,30 @@ class DocumentsController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store($id,Request $request)
     {
-        //
+        $request->validate([
+            'filepath'=>'required',
+        ]);
+
+        $startup=Startup::where('id',$id)->get();
+        $startupName=$startup[0]->name;
+        $folderName=str_replace(' ', '_', $startupName);
+
+        // $this->dosName=$folderName;
+
+        $store= new Document;
+        $store->name= $request->name;
+        // $request->file('filepath')->storePublicly('img/','public/modules/incubator/'.$folderName);
+
+        $store->filepath=$request->file('filepath')->hashName();
+        $store->startup_id=$id;
+
+
+        Storage::disk('public')->put('modules/incubator/' . $folderName, $request->file('filepath'));
+        $store->save();
+        
+        return redirect()->back();
     }
 
     /**
@@ -79,4 +109,16 @@ class DocumentsController extends Controller
     {
         //
     }
+
+    public function download($startupId,$docId){
+        // dd($docId);
+        $startup=Startup::where('id',$startupId)->get();
+        $startupName=$startup[0]->name;
+        $folderName=str_replace(' ', '_', $startupName);
+
+        $download= Document::find($docId);
+        return Storage::disk('public')->download('modules/incubator/'.$folderName.'/'.$download->filepath);
+    }
+
+    // protected function getFolderName () 
 }

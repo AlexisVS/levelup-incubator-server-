@@ -86,6 +86,8 @@ class AskingDocsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $destroy=AskingDocs::find($id);
+        $destroy->delete();
+        return redirect()->back();
     }
 }
