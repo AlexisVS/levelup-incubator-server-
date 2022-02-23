@@ -9,8 +9,14 @@ class AskingDocs extends Model
 {
     use HasFactory;
     public $table = "document_demands";
-    protected $fillable = [];
-    
+    protected $fillable = [
+        'startup_id',
+        'helper_user_id',
+        'by_startup',
+        'document_title',
+        'document_description',
+    ];
+
     // protected static function newFactory()
     // {
     //     return \Modules\Incubator\Database\factories\DocumentDemandFactory::new();
