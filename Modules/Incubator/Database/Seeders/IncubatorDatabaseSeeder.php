@@ -24,5 +24,6 @@ class IncubatorDatabaseSeeder extends Seeder
             StartupUserSeederTableSeeder::class,
             GoalAndTaskTemplateSeederTableSeeder::class
         ]);
+        \Modules\Incubator\Entities\Task::factory(5)->create();
     }
 }
