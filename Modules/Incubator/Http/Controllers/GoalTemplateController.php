@@ -43,7 +43,7 @@ class GoalTemplateController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:goal_templates,name',
             'description' => 'required',
         ]);
 
@@ -99,7 +99,7 @@ class GoalTemplateController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:goalTemplates,name',
             'description' => 'required',
         ]);
 
