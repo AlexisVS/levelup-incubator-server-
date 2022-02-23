@@ -154,7 +154,7 @@
       </p>
       <!-- Modal description -->
 
-      <form action="/incubator/tasks/startups/{{$user->startup_id}}" method="post">
+      <form action="/incubator/tasks/startups/{{$startup->id}}" method="post">
         @csrf
 
         <label class="block text-sm">
