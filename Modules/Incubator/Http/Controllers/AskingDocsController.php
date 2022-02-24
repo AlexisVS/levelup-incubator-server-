@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Incubator\Entities\AskingDocs;
 use Modules\Incubator\Entities\Startup;
+use Modules\Incubator\Entities\StartupNotifications;
 
 class AskingDocsController extends Controller
 {
@@ -34,6 +35,7 @@ class AskingDocsController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param Request $request
+     * @param $id id de la startup
      * @return Renderable
      */
     public function store($id, Request $request)
@@ -44,8 +46,15 @@ class AskingDocsController extends Controller
         $store->helper_user_id = $request->helper_user_id;
         $store->document_title = $request->document_title;
         $store->document_description = $request->document_description;
-
         $store->save();
+
+        // add to notifications and save it
+        $notification = new StartupNotifications([
+            'viewed' => false,
+            'startup_id' => $id,
+        ]);
+        $store->StartupNotifications()->save($notification);
+
         return redirect()->back();
     }
 

@@ -20,4 +20,8 @@ class AskHelp extends Model
     // {
     //     return \Modules\Incubator\Database\factories\AskHelpFactory::new();
     // }
+
+    public function StartupNotifications () {
+        return $this->morphMany(StartupNotifications::class, 'startupNotifiable');
+    }
 }

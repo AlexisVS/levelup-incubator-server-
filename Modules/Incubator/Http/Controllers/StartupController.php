@@ -9,6 +9,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\File as FacadesFile;
+use Modules\Incubator\Entities\GoalTemplate;
 use Modules\Incubator\Entities\Startup;
 use Modules\Incubator\Entities\StartupUser;
 use Modules\Incubator\Entities\Task;
@@ -31,7 +32,10 @@ class StartupController extends Controller
      */
     public function create()
     {
-        return view('incubator::pages.startups.createStartups');
+        $data = [
+            'goalTemplates' => GoalTemplate::all(),
+        ];
+        return view('incubator::pages.startups.createStartups', $data);
     }
 
     /**
@@ -60,6 +64,13 @@ class StartupController extends Controller
             //Création du dossier avec le nom de la startup
             FacadesFile::makeDirectory('modules/incubator/' . $replace);
         }
+
+        // if ($request->goalTemplates) {
+        //     $goals = GoalTemplate::find($request->goalTemplates)
+        //     // foreach ($goals in $goal) {
+
+        //     // }
+        // }
         $store->save();
 
 

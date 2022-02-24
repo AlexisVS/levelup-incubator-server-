@@ -5,6 +5,7 @@ namespace Modules\Incubator\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Incubator\Entities\StartupNotifications;
 use Modules\Incubator\Entities\Task;
 
 class TaskController extends Controller
@@ -30,19 +31,27 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param Request $request
+     * @param $id id de la startup
      * @return Renderable
      */
-    public function store($id,Request $request)
+    public function store($id, Request $request)
     {
-        $store= new Task;
-        $store->title=$request->title;
-        $store->description=$request->description;
-        $store->status="undone";
-        $store->startup_id=$id;
+        $store = new Task;
+        $store->title = $request->title;
+        $store->description = $request->description;
+        $store->status = "undone";
+        $store->startup_id = $id;
 
         $store->save();
+
+        // add to notifications and save it
+        $notification = new StartupNotifications([
+            'viewed' => false,
+            'startup_id' => $id,
+        ]);
+        $store->StartupNotifications()->save($notification);
+
         return redirect()->back();
-        
     }
 
     /**
@@ -62,8 +71,8 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        $edit=Task::find($id);
-        return view('incubator::pages.tasks.editTasks',compact('edit'));
+        $edit = Task::find($id);
+        return view('incubator::pages.tasks.editTasks', compact('edit'));
     }
 
     /**
@@ -72,14 +81,14 @@ class TaskController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update($id,Request $request)
+    public function update($id, Request $request)
     {
-        $update=Task::find($id);
-        $update->title=$request->title;
-        $update->description=$request->description;
+        $update = Task::find($id);
+        $update->title = $request->title;
+        $update->description = $request->description;
         $update->save();
 
-        return redirect('/incubator/startups/show/'.$update->startup_id);
+        return redirect('/incubator/startups/show/' . $update->startup_id);
     }
 
     /**
@@ -89,7 +98,7 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        $destroy=Task::find($id);
+        $destroy = Task::find($id);
         $destroy->delete();
         return redirect()->back();
     }

@@ -42,4 +42,8 @@ class Startup extends Model
     {
         return $this->hasMany(AskHelp::class);
     }
+
+    public function startupNotifications () {
+        return $this->hasMany(StartupNotifications::class);
+    }
 }
