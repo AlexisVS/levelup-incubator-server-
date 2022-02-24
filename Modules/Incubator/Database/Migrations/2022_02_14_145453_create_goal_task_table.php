@@ -12,8 +12,10 @@ class CreateGoalTaskTable extends Migration
      * @return void
      */
     public function up()
+
     {
         Schema::create('goal_tasks', function (Blueprint $table) {
+            
             $table->id();
             $table->string('name');
             $table->string('status');
