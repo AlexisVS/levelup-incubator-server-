@@ -15,7 +15,7 @@ class CreateAskHelpsTable extends Migration
     {
         Schema::create('ask_helps', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('startup_id')->constrained();
+            $table->foreignId('startup_id')->nullable()->constrained();
             $table->string('message');
             $table->string('status');
             $table->foreignId('helper_user_id')->nullable()->constrained('users', 'id');

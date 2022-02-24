@@ -33,7 +33,13 @@ class Startup extends Model
         return $this->hasMany(Document::class);
     }
 
-    public function documentDemands () {
-        return $this->hasMany(DocumentDemand::class);
+    public function askingDocs()
+    {
+        return $this->hasMany(AskingDocs::class);
+    }
+
+    public function askHelps()
+    {
+        return $this->hasMany(AskHelp::class);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Modules\Incubator\Http\Controllers;
 
+use App\Models\User;
 use File;
 
 use Illuminate\Contracts\Support\Renderable;
@@ -75,11 +76,12 @@ class StartupController extends Controller
     public function show($id)
     {
         // $show=Startup::find($id);
+        $molengeekUsers = User::all();
         $users = StartupUser::where('startup_id', $id)->get();
         // dd($users);
         $tasks = Task::where('startup_id', $id)->get();
         $startup = Startup::find($id);
-        return view('incubator::pages.startups.showStartups', compact('users', 'tasks', 'startup'));
+        return view('incubator::pages.startups.showStartups', compact('users', 'tasks', 'startup', 'molengeekUsers'));
     }
 
     /**

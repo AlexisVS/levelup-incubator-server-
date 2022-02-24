@@ -10,10 +10,10 @@ class AskHelp extends Model
     use HasFactory;
 
     protected $fillable = [
+        'helper_user_id',
         'startup_id',
         'message',
         'status',
-        'helper_user_id',
     ];
 
     // protected static function newFactory()
