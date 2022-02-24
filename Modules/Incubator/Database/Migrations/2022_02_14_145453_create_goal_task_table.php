@@ -17,7 +17,6 @@ class CreateGoalTaskTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('status');
-            // $table->foreignId('goal_id')->constrained();
             $table->timestamps();
         });
     }

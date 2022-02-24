@@ -9,6 +9,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\File as FacadesFile;
+use Modules\Incubator\Entities\Goal;
+use Modules\Incubator\Entities\GoalTask;
 use Modules\Incubator\Entities\GoalTemplate;
 use Modules\Incubator\Entities\Startup;
 use Modules\Incubator\Entities\StartupUser;
@@ -64,14 +66,28 @@ class StartupController extends Controller
             //Création du dossier avec le nom de la startup
             FacadesFile::makeDirectory('modules/incubator/' . $replace);
         }
-
-        // if ($request->goalTemplates) {
-        //     $goals = GoalTemplate::find($request->goalTemplates)
-        //     // foreach ($goals in $goal) {
-
-        //     // }
-        // }
         $store->save();
+
+        if ($request->goalTemplates) {
+            $goalsTemplates = GoalTemplate::find($request->goalTemplates);
+            foreach ($goalsTemplates as $goalTemplate) {
+
+                $goal = Goal::create([
+                    'name' => $goalTemplate->name,
+                    'description' => $goalTemplate->description,
+                    'startup_id' => $store->id,
+                    'helper_user_id' => null,
+                ]);
+                foreach ($goalTemplate->goalTaskTemplates as $goalTaskTemplate) {
+                    $goalTask = GoalTask::create([
+                        'name' => $goalTaskTemplate->name,
+                        'status' => 'undone',
+                    ]);
+                    $goal->GoalTasks()->attach($goalTask);
+                }
+            }
+        }
+
 
 
         $startups = Startup::all();
