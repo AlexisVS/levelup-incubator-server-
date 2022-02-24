@@ -56,9 +56,6 @@ class GoalController extends Controller
             'startup_id' => $startupId,
         ]);
 
-        if ($request->goal_tasks) {
-            $store->goalTasks()->sync($request->goal_tasks);
-        }
 
         return redirect('/incubator/startups/show/' . $startupId)->with('success', 'Goal has been successfully created.');
     }
@@ -110,11 +107,7 @@ class GoalController extends Controller
         $update->name = $request->name;
         $update->description = trim($request->description);
         $update->save();
-
-
-        if ($request->goal_tasks) {
-            $update->goalTasks()->sync($request->goal_tasks);
-        }
+        
 
         return redirect('/incubator/startups/show/' . $startupdId)->with('success', 'The goal ' . $update->name . ' has been successfully updated.');
     }
