@@ -100,7 +100,8 @@ Route::prefix('incubator')->middleware('auth')->group(function () {
     Route::post("/startups/{id}/documents", [DocumentsController::class, "store"]);
     //download
     Route::get("/startups/{startupId}/documents/{docId}", [DocumentsController::class, "download"]);
-
+    //delete document
+    Route::delete("/startups/{startupId}/documents/{docId}", [DocumentsController::class, "destroy"]);
 
     //Demande de Documents
     Route::get("/startups/{id}/asking-docs", [AskingDocsController::class, "create"]);
