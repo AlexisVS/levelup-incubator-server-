@@ -22,11 +22,13 @@ class DocumentsController extends Controller
     {
         $startup = Startup::find($id);
 
-        $askedStartupDocs = AskingDocs::where('startup_id', $id)->get();
+        $askedStartupDocs = AskingDocs::where('startup_id', $id)->where('by_startup',0)->get();
+        $docsAskedByStartups = AskingDocs::where('startup_id', $id)->where('by_startup',1)->get();
+
 
         $documents = Document::where('startup_id', $id)->get();
         // dd($documents);
-        return view('incubator::pages.docs.docs', compact('startup', 'askedStartupDocs', 'documents'));
+        return view('incubator::pages.docs.docs', compact('startup', 'askedStartupDocs', 'documents','docsAskedByStartups'));
     }
 
     /**
