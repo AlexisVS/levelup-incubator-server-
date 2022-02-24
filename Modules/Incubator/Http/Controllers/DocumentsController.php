@@ -105,9 +105,20 @@ class DocumentsController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($startupId,$docId)
     {
-        //
+        
+        $startup=Startup::where('id',$startupId)->get();
+        $startupName=$startup[0]->name;
+        $folderName=str_replace(' ', '_', $startupName);
+        
+        $destroy=Document::find($docId);
+        // Storage::delete('/modules/incubator/'.$folderName.'/'.$destroy->filepath);
+
+        Storage::disk('public')->delete('modules/incubator/'.$folderName.'/'.$destroy->filepath);
+
+        $destroy->delete();
+        return redirect()->back();
     }
 
     public function download($startupId,$docId){

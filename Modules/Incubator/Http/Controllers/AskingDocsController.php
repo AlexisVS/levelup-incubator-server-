@@ -26,9 +26,9 @@ class AskingDocsController extends Controller
      */
     public function create($id)
     {
-        $users=User::all();
-        $startup=Startup::find($id);
-        return view('incubator::pages.docs.asking_docs.askingDocs',compact('users','startup'));
+        $users = User::all();
+        $startup = Startup::find($id);
+        return view('incubator::pages.docs.asking_docs.askingDocs', compact('users', 'startup'));
     }
 
     /**
@@ -36,16 +36,16 @@ class AskingDocsController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store($id,Request $request)
+    public function store($id, Request $request)
     {
-        $store=new AskingDocs;
-        $store->startup_id=$id;
-        $store->helper_user_id=$request->helper_user_id;
-        $store->document_title=$request->document_title;
+        $store = new AskingDocs;
+        $store->startup_id = $id;
+        $store->by_startup = false;
+        $store->helper_user_id = $request->helper_user_id;
+        $store->document_title = $request->document_title;
 
         $store->save();
         return redirect()->back();
-
     }
 
     /**

@@ -9,13 +9,19 @@ class Goal extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
-    
+    protected $fillable = [
+        'name',
+        'description',
+        'startup_id',
+        'helper_user_id',
+    ];
+
     // protected static function newFactory()
     // {
     //     return \Modules\Incubator\Database\factories\GoalModelFactory::new();
     // }
-    public function goalTasks () {
-        return $this->belongsToMany(Task::class, 'pivot_goal_tasks')->using(PivotGoalTask::class);
+    public function goalTasks()
+    {
+        return $this->belongsToMany(GoalTask::class, 'pivot_goal_tasks')->using(PivotGoalTask::class);
     }
 }
