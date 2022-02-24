@@ -43,6 +43,7 @@ class AskingDocsController extends Controller
         $store->by_startup = false;
         $store->helper_user_id = $request->helper_user_id;
         $store->document_title = $request->document_title;
+        $store->document_description = $request->document_description;
 
         $store->save();
         return redirect()->back();

@@ -44,7 +44,7 @@ class GoalTaskController extends Controller
     public function store(Request $request, $startupId, $goalId)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:goal_tasks,name',
         ]);
 
         $goalTask = GoalTask::create([
@@ -65,7 +65,7 @@ class GoalTaskController extends Controller
      */
     public function show($startupId, $goalId, $goalTaskId)
     {
-        return view('incubator::pages.goals.show');
+        return view('incubator::pages.goal_tasks.show');
     }
 
     /**
@@ -80,7 +80,7 @@ class GoalTaskController extends Controller
             'startup' => Startup::find($startupId),
             'goal_task' => GoalTask::find($goalTaskId),
         ];
-        return view('incubator::pages.goals.edit', $data);
+        return view('incubator::pages.goal_tasks.edit', $data);
     }
 
     /**
@@ -91,7 +91,16 @@ class GoalTaskController extends Controller
      */
     public function update(Request $request, $startupId, $goalId, $goalTaskId)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:goal_tasks,name',
+        ]);
+
+        $goalTask = GoalTask::find($goalTaskId);
+        $goalTask->name = $request->name;
+        $goalTask->status = "undone";
+        $goalTask->save();
+
+        return redirect('/incubator/startups/' . $startupId . '/goals/' . $goalId)->with('success', 'Goal Task has been successfully updated.');
     }
 
     /**
@@ -101,6 +110,8 @@ class GoalTaskController extends Controller
      */
     public function destroy($startupId, $goalId, $goalTaskId)
     {
-        //
+        Goal::find($goalId)->goalTasks()->detach($goalTaskId);
+
+        return redirect('/incubator/startups/' . $startupId . '/goals/' . $goalId)->with('success', 'Goal Task has been successfully removed.');
     }
 }

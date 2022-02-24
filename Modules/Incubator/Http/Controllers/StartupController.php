@@ -1,6 +1,7 @@
 <?php
 
 namespace Modules\Incubator\Http\Controllers;
+
 use File;
 
 use Illuminate\Contracts\Support\Renderable;
@@ -19,8 +20,8 @@ class StartupController extends Controller
      */
     public function index()
     {
-        $startups=Startup::all();
-        return view('incubator::pages.startups.startups',compact('startups'));
+        $startups = Startup::all();
+        return view('incubator::pages.startups.startups', compact('startups'));
     }
 
     /**
@@ -40,30 +41,30 @@ class StartupController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:50',
+            'name' => 'required|max:50|unique:startups,name',
             'description' => 'required|max:500',
         ]);
 
-        $store= new Startup;
-        $store->name=$request->name;
-        $store->description=$request->description;
+        $store = new Startup;
+        $store->name = $request->name;
+        $store->description = $request->description;
 
         //On remplace les espaces présents dans le nom de la startup par des _
-        $replace=str_replace(' ', '_', $request->name);
-        
-        //Créer le dossier seulement s'il n'existe pas déja
-        if(!FacadesFile::isDirectory('modules/incubator/'.$request->name)){
-        
+        $replace = str_replace(' ', '_', $request->name);
 
-        //Création du dossier avec le nom de la startup
-        FacadesFile::makeDirectory('modules/incubator/'.$replace);
+        //Créer le dossier seulement s'il n'existe pas déja
+        if (!FacadesFile::isDirectory('modules/incubator/' . $replace)) {
+
+
+            //Création du dossier avec le nom de la startup
+            FacadesFile::makeDirectory('modules/incubator/' . $replace);
         }
         $store->save();
 
 
-        $startups=Startup::all();
+        $startups = Startup::all();
 
-        return view('incubator::pages.startups.startups',compact('startups'));
+        return view('incubator::pages.startups.startups', compact('startups'));
     }
 
     /**
@@ -74,11 +75,11 @@ class StartupController extends Controller
     public function show($id)
     {
         // $show=Startup::find($id);
-        $users=StartupUser::where('startup_id',$id)->get();
+        $users = StartupUser::where('startup_id', $id)->get();
         // dd($users);
-        $tasks=Task::where('startup_id',$id)->get();
+        $tasks = Task::where('startup_id', $id)->get();
         $startup = Startup::find($id);
-        return view('incubator::pages.startups.showStartups',compact('users','tasks', 'startup'));
+        return view('incubator::pages.startups.showStartups', compact('users', 'tasks', 'startup'));
     }
 
     /**
@@ -88,8 +89,8 @@ class StartupController extends Controller
      */
     public function edit($id)
     {
-        $edit=Startup::find($id);
-        return view('incubator::pages.startups.editStartups',compact('edit'));
+        $edit = Startup::find($id);
+        return view('incubator::pages.startups.editStartups', compact('edit'));
     }
 
     /**
@@ -98,21 +99,21 @@ class StartupController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update($id,Request $request)
+    public function update($id, Request $request)
     {
         $request->validate([
-            'name' => 'required|max:50',
+            'name' => 'required|max:50|unique:startups,name',
             'description' => 'required|max:500',
         ]);
 
-        $update= Startup::find($id);
-        $update->name=$request->name;
-        $update->description=$request->description;
+        $update = Startup::find($id);
+        $update->name = $request->name;
+        $update->description = $request->description;
         $update->save();
 
-        $startups=Startup::all();
+        $startups = Startup::all();
 
-        return view('incubator::pages.startups.startups',compact('startups'));
+        return view('incubator::pages.startups.startups', compact('startups'));
     }
 
     /**
@@ -123,7 +124,7 @@ class StartupController extends Controller
     public function destroy($id)
     {
         //Supression de la Startup et des Users liés à celle-ci
-        $destroy= Startup::find($id);
+        $destroy = Startup::find($id);
         $users = $destroy->startupUsers;
         StartupUser::destroy($users);
         $destroy->delete();

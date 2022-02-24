@@ -16,9 +16,10 @@ class CreateDocumentDemandsTable extends Migration
         Schema::create('document_demands', function (Blueprint $table) {
             $table->id();
             $table->foreignId('startup_id')->constrained();
-            $table->foreignId('helper_user_id')->constrained('users', 'id');
+            $table->foreignId('helper_user_id')->nullable()->constrained('users', 'id');
             $table->boolean('by_startup');
             $table->string('document_title');
+            $table->string('document_description');
             $table->timestamps();
         });
     }

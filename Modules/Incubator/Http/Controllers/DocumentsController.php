@@ -20,13 +20,13 @@ class DocumentsController extends Controller
 
     public function index($id)
     {
-        $startup=Startup::find($id);
+        $startup = Startup::find($id);
 
-        $askedStartupDocs=AskingDocs::where('startup_id',$id)->get();
+        $askedStartupDocs = AskingDocs::where('startup_id', $id)->get();
 
-        $documents=Document::where('startup_id',$id)->get();
+        $documents = Document::where('startup_id', $id)->get();
         // dd($documents);
-        return view('incubator::pages.docs.docs',compact('startup','askedStartupDocs','documents'));
+        return view('incubator::pages.docs.docs', compact('startup', 'askedStartupDocs', 'documents'));
     }
 
     /**
@@ -43,29 +43,30 @@ class DocumentsController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store($id,Request $request)
+    public function store($id, Request $request)
     {
         $request->validate([
-            'filepath'=>'required',
+            'filepath' => 'required',
+            'name' => 'required',
         ]);
 
-        $startup=Startup::where('id',$id)->get();
-        $startupName=$startup[0]->name;
-        $folderName=str_replace(' ', '_', $startupName);
+        $startup = Startup::where('id', $id)->get();
+        $startupName = $startup[0]->name;
+        $folderName = str_replace(' ', '_', $startupName);
 
         // $this->dosName=$folderName;
 
-        $store= new Document;
-        $store->name= $request->name;
+        $store = new Document;
+        $store->name = $request->name;
         // $request->file('filepath')->storePublicly('img/','public/modules/incubator/'.$folderName);
 
-        $store->filepath=$request->file('filepath')->hashName();
-        $store->startup_id=$id;
+        $store->filepath = $request->file('filepath')->hashName();
+        $store->startup_id = $id;
 
 
         Storage::disk('public')->put('modules/incubator/' . $folderName, $request->file('filepath'));
         $store->save();
-        
+
         return redirect()->back();
     }
 
@@ -121,14 +122,15 @@ class DocumentsController extends Controller
         return redirect()->back();
     }
 
-    public function download($startupId,$docId){
+    public function download($startupId, $docId)
+    {
         // dd($docId);
-        $startup=Startup::where('id',$startupId)->get();
-        $startupName=$startup[0]->name;
-        $folderName=str_replace(' ', '_', $startupName);
+        $startup = Startup::where('id', $startupId)->get();
+        $startupName = $startup[0]->name;
+        $folderName = str_replace(' ', '_', $startupName);
 
-        $download= Document::find($docId);
-        return Storage::disk('public')->download('modules/incubator/'.$folderName.'/'.$download->filepath);
+        $download = Document::find($docId);
+        return Storage::disk('public')->download('modules/incubator/' . $folderName . '/' . $download->filepath);
     }
 
     // protected function getFolderName () 

@@ -11,8 +11,10 @@ class Task extends Model
 
     protected $fillable = [];
     
-    // protected static function newFactory()
-    // {
-    //     return \Modules\Incubator\Database\factories\TaskFactory::new();
-    // }
+    protected static function newFactory()
+    {
+        return \Modules\Incubator\Database\factories\TaskFactory::new();
+    }
 }
+
+
