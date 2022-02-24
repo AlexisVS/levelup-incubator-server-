@@ -9,8 +9,8 @@ class Document extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
-    
+    protected $fillable = ['filepath', 'name'];
+
     // protected static function newFactory()
     // {
     //     return \Modules\Incubator\Database\factories\DocumentModelFactory::new();
