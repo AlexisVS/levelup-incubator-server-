@@ -3,5 +3,6 @@
     "/css/app.css": "/css/app.css",
     "/js/incubator.js": "/js/incubator.js",
     "/css/tailwind.css": "/css/tailwind.css",
-    "/css/incubator.css": "/css/incubator.css"
+    "/css/incubator.css": "/css/incubator.css",
+    "/css/tailwindtest.css": "/css/tailwindtest.css"
 }
