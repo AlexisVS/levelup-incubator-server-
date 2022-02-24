@@ -20,6 +20,7 @@ class CreateDocumentDemandsTable extends Migration
             $table->boolean('by_startup');
             $table->text('description');
             $table->string('document_title');
+            $table->string('document_description');
             $table->timestamps();
         });
     }
