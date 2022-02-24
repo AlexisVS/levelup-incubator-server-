@@ -18,6 +18,7 @@ class CreateDocumentDemandsTable extends Migration
             $table->foreignId('startup_id')->constrained();
             $table->foreignId('helper_user_id')->nullable()->constrained('users', 'id');
             $table->boolean('by_startup');
+            $table->text('description');
             $table->string('document_title');
             $table->timestamps();
         });
