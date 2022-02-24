@@ -107,6 +107,9 @@ class GoalController extends Controller
         $update->name = $request->name;
         $update->description = trim($request->description);
         $update->save();
+
+
+
         
 
         return redirect('/incubator/startups/show/' . $startupdId)->with('success', 'The goal ' . $update->name . ' has been successfully updated.');
