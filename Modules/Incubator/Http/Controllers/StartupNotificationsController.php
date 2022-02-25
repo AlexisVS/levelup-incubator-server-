@@ -2,15 +2,11 @@
 
 namespace Modules\Incubator\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Incubator\Entities\AskingDocs;
-use Modules\Incubator\Entities\Startup;
-use Modules\Incubator\Entities\StartupNotifications;
 
-class AskingDocsController extends Controller
+class StartupNotificationsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,37 +21,19 @@ class AskingDocsController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create($id)
+    public function create()
     {
-        $users = User::all();
-        $startup = Startup::find($id);
-        return view('incubator::pages.docs.asking_docs.askingDocs', compact('users', 'startup'));
+        return view('incubator::create');
     }
 
     /**
      * Store a newly created resource in storage.
      * @param Request $request
-     * @param $id id de la startup
      * @return Renderable
      */
-    public function store($id, Request $request)
+    public function store(Request $request)
     {
-        $store = new AskingDocs;
-        $store->startup_id = $id;
-        $store->by_startup = false;
-        $store->helper_user_id = $request->helper_user_id;
-        $store->document_title = $request->document_title;
-        $store->document_description = $request->document_description;
-        $store->save();
-
-        // add to notifications and save it
-        $notification = new StartupNotifications([
-            'viewed' => false,
-            'startup_id' => $id,
-        ]);
-        $store->StartupNotifications()->save($notification);
-
-        return redirect()->back();
+        //
     }
 
     /**
@@ -96,8 +74,6 @@ class AskingDocsController extends Controller
      */
     public function destroy($id)
     {
-        $destroy=AskingDocs::find($id);
-        $destroy->delete();
-        return redirect()->back();
+        //
     }
 }

@@ -21,4 +21,9 @@ class AskingDocs extends Model
     // {
     //     return \Modules\Incubator\Database\factories\DocumentDemandFactory::new();
     // }
+
+    public function StartupNotifications()
+    {
+        return $this->morphMany(StartupNotifications::class, 'startupNotifiable');
+    }
 }

@@ -38,12 +38,20 @@
             </p>
           </td>
           <td class="px-4 py-3 text-xs">
-            <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-              {{-- {{ $startup->description }} --}}
-              Mettre demande aide
-              <br>
-              besoin de document
-            </span>
+            <div class="flex item-center space-x-2">
+              @if($startup->askHelps->count() > 0)
+              <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                A besoin d'aide
+              </span>
+              @endif
+              @if($startup->askingDocs->count() > 0)
+              <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                {{-- {{ $startup->description }} --}}
+                Besoin de document
+              </span>
+              @endif
+
+            </div>
           </td>
           <td class="px-4 py-3">
             <div class="flex items-center space-x-4 text-sm">

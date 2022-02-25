@@ -22,11 +22,13 @@ class DocumentsController extends Controller
     {
         $startup = Startup::find($id);
 
-        $askedStartupDocs = AskingDocs::where('startup_id', $id)->get();
+        $askedStartupDocs = AskingDocs::where('startup_id', $id)->where('by_startup',0)->get();
+        $docsAskedByStartups = AskingDocs::where('startup_id', $id)->where('by_startup',1)->get();
+
 
         $documents = Document::where('startup_id', $id)->get();
         // dd($documents);
-        return view('incubator::pages.docs.docs', compact('startup', 'askedStartupDocs', 'documents'));
+        return view('incubator::pages.docs.docs', compact('startup', 'askedStartupDocs', 'documents','docsAskedByStartups'));
     }
 
     /**
@@ -106,9 +108,20 @@ class DocumentsController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($startupId,$docId)
     {
-        //
+        
+        $startup=Startup::where('id',$startupId)->get();
+        $startupName=$startup[0]->name;
+        $folderName=str_replace(' ', '_', $startupName);
+        
+        $destroy=Document::find($docId);
+        // Storage::delete('/modules/incubator/'.$folderName.'/'.$destroy->filepath);
+
+        Storage::disk('public')->delete('modules/incubator/'.$folderName.'/'.$destroy->filepath);
+
+        $destroy->delete();
+        return redirect()->back();
     }
 
     public function download($startupId, $docId)

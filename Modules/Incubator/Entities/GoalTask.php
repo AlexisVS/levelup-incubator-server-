@@ -11,12 +11,6 @@ class GoalTask extends Model
 
     protected $fillable = ['name', 'status'];
 
-    
-    // protected static function newFactory()
-    // {
-    //     return \Modules\Incubator\Database\factories\TaskModelFactory::new();
-    // }
-
     public function goals () {
         return $this->belongsToMany(Goal::class, 'pivot_goal_tasks')->using(PivotGoalTask::class);
     }

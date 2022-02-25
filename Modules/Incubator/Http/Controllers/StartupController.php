@@ -2,12 +2,16 @@
 
 namespace Modules\Incubator\Http\Controllers;
 
+use App\Models\User;
 use File;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\File as FacadesFile;
+use Modules\Incubator\Entities\Goal;
+use Modules\Incubator\Entities\GoalTask;
+use Modules\Incubator\Entities\GoalTemplate;
 use Modules\Incubator\Entities\Startup;
 use Modules\Incubator\Entities\StartupUser;
 use Modules\Incubator\Entities\Task;
@@ -30,7 +34,10 @@ class StartupController extends Controller
      */
     public function create()
     {
-        return view('incubator::pages.startups.createStartups');
+        $data = [
+            'goalTemplates' => GoalTemplate::all(),
+        ];
+        return view('incubator::pages.startups.createStartups', $data);
     }
 
     /**
@@ -61,6 +68,27 @@ class StartupController extends Controller
         }
         $store->save();
 
+        if ($request->goalTemplates) {
+            $goalsTemplates = GoalTemplate::find($request->goalTemplates);
+            foreach ($goalsTemplates as $goalTemplate) {
+
+                $goal = Goal::create([
+                    'name' => $goalTemplate->name,
+                    'description' => $goalTemplate->description,
+                    'startup_id' => $store->id,
+                    'helper_user_id' => null,
+                ]);
+                foreach ($goalTemplate->goalTaskTemplates as $goalTaskTemplate) {
+                    $goalTask = GoalTask::create([
+                        'name' => $goalTaskTemplate->name,
+                        'status' => 'undone',
+                    ]);
+                    $goal->GoalTasks()->attach($goalTask);
+                }
+            }
+        }
+
+
 
         $startups = Startup::all();
 
@@ -75,11 +103,12 @@ class StartupController extends Controller
     public function show($id)
     {
         // $show=Startup::find($id);
+        $molengeekUsers = User::all();
         $users = StartupUser::where('startup_id', $id)->get();
         // dd($users);
         $tasks = Task::where('startup_id', $id)->get();
         $startup = Startup::find($id);
-        return view('incubator::pages.startups.showStartups', compact('users', 'tasks', 'startup'));
+        return view('incubator::pages.startups.showStartups', compact('users', 'tasks', 'startup', 'molengeekUsers'));
     }
 
     /**

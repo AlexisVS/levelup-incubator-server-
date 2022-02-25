@@ -25,6 +25,64 @@
 
 
 @if($startup->goals->count() > 0)
+{{-- Demand d'aide ( asking docs ) --}}
+<section class="mb-8">
+  <h2 class=" text-2xl font-semibold text-gray-700 dark:text-gray-200">
+    Demande d'aide
+  </h2>
+  @foreach ($startup->askHelps as $askHelp)
+  <div class="mt-4 min-w-0 px-4 py-1 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+    <div class="flex items-center justify-between">
+      <h4 class="font-semibold text-gray-600 dark:text-gray-300">
+        {{$startup->name . ': ' . $askHelp->message}}
+      </h4>
+      {{-- Action --}}
+      <div class="flex items-center space-x-4 text-sm">
+        {{-- Status done --}}
+        <form action="/incubator/startups/{{ $startup->id }}/askHelps/{{ $askHelp->id }}" method="post">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Delete">
+            <svg width="24px" stroke="currentColor" fill="currentColor" height="24px" viewBox="0 0 24 24" id="d9090658-f907-4d85-8bc1-743b70378e93" data-name="Livello 1" xmlns="http://www.w3.org/2000/svg">
+              <path id="70fa6808-131f-4233-9c3a-fc089fd0c1c4" data-name="done circle" d="M12,0A12,12,0,1,0,24,12,12,12,0,0,0,12,0ZM11.52,17L6,12.79l1.83-2.37L11.14,13l4.51-5.08,2.24,2Z" />
+            </svg>
+          </button>
+        </form>
+
+        {{-- Attribuer user --}}
+        <form action="/incubator/startups/{{ $startup->id }}/askHelps/{{ $askHelp->id }}" method="post">
+          @csrf
+          @method('PUT')
+          <label class="block py-2 text-sm">
+            <span class="text-gray-700 dark:text-gray-400">
+              Goal task template associated
+            </span>
+            <select name="helper_user_id" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-multiselect focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+              @if ($askHelp->helper_user_id !== null)
+                <option value="{{ $askHelp->helper_user_id }}">{{ App\Models\User::where('id', $askHelp->helper_user_id)->get()->first()->name}}</option>
+              @else
+                
+              <option>Choix staff</option>
+              @endif
+              @foreach($molengeekUsers as $molengeekUser)
+                <option value="{{ $molengeekUser->id }}">{{ $molengeekUser->name ?? $molengeekUser->email }}</option>
+              @endforeach
+            </select>
+          </label>
+          <button type="submit" class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+            Attribuer
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+  @endforeach
+</section>
+@endif
+
+
+@if($startup->goals->count() > 0)
 {{-- Goals --}}
 <section class="mb-8">
   <h2 class=" text-2xl font-semibold text-gray-700 dark:text-gray-200">

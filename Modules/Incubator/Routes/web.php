@@ -12,6 +12,7 @@
 */
 
 use Illuminate\Support\Facades\Route;
+use Modules\Incubator\Http\Controllers\AskHelpController;
 use Modules\Incubator\Http\Controllers\GoalTaskTemplateController;
 use Modules\Incubator\Http\Controllers\AskingDocsController;
 use Modules\Incubator\Http\Controllers\GoalTaskController;
@@ -64,6 +65,11 @@ Route::prefix('incubator')->middleware('auth')->group(function () {
     Route::get('/startups/{id}/goals/{goalsId}/tasks/{taskId}/edit', [GoalTaskController::class, 'edit']);
     Route::put('/startups/{id}/goals/{goalsId}/tasks/{taskId}', [GoalTaskController::class, 'update']);
     Route::delete('/startups/{id}/goals/{goalsId}/tasks/{taskId}', [GoalTaskController::class, 'destroy']);
+
+    //Ask Helps
+
+    Route::delete('/startups/{id}/askHelps/{askHelpId}', [AskHelpController::class, 'helpDone']);
+    Route::put('/startups/{id}/askHelps/{askHelpId}', [AskHelpController::class, 'update']);
     /* -------------------------------------------------------------------------- */
 
     // CRUD startup user except index
@@ -94,14 +100,15 @@ Route::prefix('incubator')->middleware('auth')->group(function () {
     Route::post("/startups/{id}/documents", [DocumentsController::class, "store"]);
     //download
     Route::get("/startups/{startupId}/documents/{docId}", [DocumentsController::class, "download"]);
-    
+    //delete document
+    Route::delete("/startups/{startupId}/documents/{docId}", [DocumentsController::class, "destroy"]);
 
     //Demande de Documents
     Route::get("/startups/{id}/asking-docs", [AskingDocsController::class, "create"]);
     Route::post("/startups/{id}/asking-docs", [AskingDocsController::class, "store"]);
     Route::delete("/askedDoc/{id}", [AskingDocsController::class, "destroy"]);
 
-    
+
     // CRUD goal task templates
     Route::get('/goal-task-templates', [GoalTaskTemplateController::class, 'index']);
     Route::get('/goal-task-templates/create', [GoalTaskTemplateController::class, 'create']);

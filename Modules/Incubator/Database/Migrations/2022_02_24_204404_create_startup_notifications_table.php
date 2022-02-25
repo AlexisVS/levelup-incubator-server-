@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGoalTaskTable extends Migration
+class CreateStartupNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateGoalTaskTable extends Migration
      */
     public function up()
     {
-        Schema::create('goal_tasks', function (Blueprint $table) {
+        Schema::create('startup_notifications', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('status');
+            $table->boolean('viewed');
+            $table->foreignId('startup_id')->constrained();
+            $table->integer('startupNotifiable_id');
+            $table->string('startupNotifiable_type');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateGoalTaskTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('goal_tasks');
+        Schema::dropIfExists('startup_notifications');
     }
 }

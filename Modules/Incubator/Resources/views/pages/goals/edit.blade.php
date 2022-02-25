@@ -20,18 +20,6 @@
       <textarea name="description" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" rows="3" placeholder="Enter description">{{ trim($goal->description, ' ') ?? ''}}</textarea>
     </label>
 
-    <label class="block py-2 text-sm">
-      <span class="text-gray-700 dark:text-gray-400">
-        Goal task template associated
-      </span>
-      <select name="goal_tasks[]" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-multiselect focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" multiple>
-        {{-- TODO : Peut peut être poser probleme si il y a deux goals --}}
-        @foreach($goal_tasks as $goal_task)
-          <option {{ $goal->goalTasks->contains('id', $goal_task->id) ? 'selected' : null }} value="{{ $goal_task->id }}">{{ $goal_task->name }}</option>
-        @endforeach
-      </select>
-    </label>
-
     <button type="submit" class="px-4 mt-4 mb-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
       Submit
     </button>
