@@ -157,6 +157,6 @@ class StartupController extends Controller
         $users = $destroy->startupUsers;
         StartupUser::destroy($users);
         $destroy->delete();
-        return redirect()->back();
+        return redirect('/incubator/startups');
     }
 }

@@ -61,7 +61,7 @@ class StartupUserController extends Controller
             'startup_id' => $request->startup_id,
         ]);
 
-        return redirect()->back()->with('success', 'The user' . $request->email . ' has been successfully created.');
+        return redirect('/incubator/startups')->with('success', 'The user' . $request->email . ' has been successfully created.');
     }
 
     // /**
