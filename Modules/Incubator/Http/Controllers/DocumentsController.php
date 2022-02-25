@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Modules\Incubator\Entities\AskingDocs;
 use Modules\Incubator\Entities\Document;
 use Modules\Incubator\Entities\Startup;
+use Modules\Incubator\Entities\StartupNotifications;
 
 class DocumentsController extends Controller
 {
@@ -22,13 +23,13 @@ class DocumentsController extends Controller
     {
         $startup = Startup::find($id);
 
-        $askedStartupDocs = AskingDocs::where('startup_id', $id)->where('by_startup',0)->get();
-        $docsAskedByStartups = AskingDocs::where('startup_id', $id)->where('by_startup',1)->get();
+        $askedStartupDocs = AskingDocs::where('startup_id', $id)->where('by_startup', 0)->get();
+        $docsAskedByStartups = AskingDocs::where('startup_id', $id)->where('by_startup', 1)->get();
 
 
         $documents = Document::where('startup_id', $id)->get();
         // dd($documents);
-        return view('incubator::pages.docs.docs', compact('startup', 'askedStartupDocs', 'documents','docsAskedByStartups'));
+        return view('incubator::pages.docs.docs', compact('startup', 'askedStartupDocs', 'documents', 'docsAskedByStartups'));
     }
 
     /**
@@ -69,6 +70,13 @@ class DocumentsController extends Controller
         Storage::disk('public')->put('modules/incubator/' . $folderName, $request->file('filepath'));
         $store->save();
 
+        // add to notifications and save it
+        $notification = new StartupNotifications([
+            'viewed' => false,
+            'startup_id' => $id,
+        ]);
+        $store->StartupNotifications()->save($notification);
+
         return redirect()->back();
     }
 
@@ -108,17 +116,17 @@ class DocumentsController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($startupId,$docId)
+    public function destroy($startupId, $docId)
     {
-        
-        $startup=Startup::where('id',$startupId)->get();
-        $startupName=$startup[0]->name;
-        $folderName=str_replace(' ', '_', $startupName);
-        
-        $destroy=Document::find($docId);
+
+        $startup = Startup::where('id', $startupId)->get();
+        $startupName = $startup[0]->name;
+        $folderName = str_replace(' ', '_', $startupName);
+
+        $destroy = Document::find($docId);
         // Storage::delete('/modules/incubator/'.$folderName.'/'.$destroy->filepath);
 
-        Storage::disk('public')->delete('modules/incubator/'.$folderName.'/'.$destroy->filepath);
+        Storage::disk('public')->delete('modules/incubator/' . $folderName . '/' . $destroy->filepath);
 
         $destroy->delete();
         return redirect()->back();

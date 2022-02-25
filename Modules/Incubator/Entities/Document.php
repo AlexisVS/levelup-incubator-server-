@@ -15,4 +15,9 @@ class Document extends Model
     // {
     //     return \Modules\Incubator\Database\factories\DocumentModelFactory::new();
     // }
+
+    public function StartupNotifications()
+    {
+        return $this->morphMany(StartupNotifications::class, 'startupNotifiable');
+    }
 }
